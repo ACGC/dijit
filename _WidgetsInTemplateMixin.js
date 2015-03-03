@@ -45,7 +45,7 @@ define([
 				parser.parse(node, {
 					noStart: !this._earlyTemplatedStartup,
 					template: true,
-					inherited: {dir: this.dir, lang: this.lang, textDir: this.textDir},
+					inherited: {dir: this.dir, lang: this.lang, textDir: this.textDir, numericShaperType: this.numericShaperType},
 					propsThis: this,	// so data-dojo-props of widgets in the template can reference "this" to refer to me
 					contextRequire: this.contextRequire,
 					scope: "dojo"	// even in multi-version mode templates use dojoType/data-dojo-type

@@ -1,4 +1,4 @@
-define([], function(){
+define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper, on){
 
 	// module:
 	//		dijit/_BidiMixin
@@ -35,6 +35,22 @@ define([], function(){
 		//
 		//		By default is as the page direction.
 		textDir: "",
+		
+		numericShaperType: "Nominal", // just for testing -should be dynamically changed.
+		
+		getNumericShaperType: function(){
+			// summary:
+			//		Gets the numeric shaping type of the widget.
+			
+			return this.numericShaperType;
+		},
+		
+		setNumericShaperType: function(type){
+			// summary:
+			//		Sets the numeric shaping type of the widget.
+			
+			this.numericShaperType = type;
+		},
 
 		getTextDir: function(/*String*/ text){
 			// summary:
@@ -93,6 +109,9 @@ define([], function(){
 					// set element's dir to match textDir, but not when textDir is null and not when it already matches
 					element.dir = textDir;
 				}
+			}
+			if(element.value){
+				element.value = this.applyNumericShaping(element.value);	
 			}
 		},
 
@@ -154,6 +173,76 @@ define([], function(){
 					this.applyTextDir(node);
 				}
 			}
+		},
+		preamble: function(){
+			this.inherited(arguments);
+			//on(this,"keyup",this._changeHandler);
+			//if(this.setLabel)
+			//this._setLabelAttr = this._changeHandler;
+			//on("_setLabelAttr",this._changeHandler);
+			//this.watch("label", this._changeHandler);
+		},
+		_changeHandler: function(v,m,n){
+			if(this.label)
+			this.label= this.applyNumericShaping(this.label);
+			//alert("pepsi");
+			
+		},
+		/**
+		 * it will be invoked before rendering occurs, and before any dom nodes are created. 
+		 * If you need to add or change the instance’s properties before the widget is rendered - this is the place to do it.
+		 * 
+		 */
+		postMixInProperties : function(){
+			this.inherited(arguments);
+			//this.watch("label", this._changeHandler);
+			if (this.label)
+				this.label = this.applyNumericShaping(this.label);
+			/*
+			if (this.displayedValue)
+				this.displayedValue = this.applyNumericShaping(this.displayedValue);
+			
+			if (this.optionsTitle)
+				this.optionsTitle = this.applyNumericShaping(this.optionsTitle);
+
+			if (this.content)
+				this.content = this.applyNumericShaping(this.content);
+
+			if (this.title)
+				this.title = this.applyNumericShaping(this.title);
+
+			if (this.tooltip)
+				this.tooltip = this.applyNumericShaping(this.tooltip);
+
+			if(this.options){
+				for(var i = 0; i < this.options.length; i++)
+					this.options[i].label =  this.applyNumericShaping(this.options[i].label);
+			}*/
+		},
+		applyNumericShaping : function( /*String?*/ text) {
+			// summary:
+			//		Apply the shaping behavior
+
+			if(!text)
+				return;
+			text = new String(text);  // fix for text.split runtime exception
+			var ob = new NumericShaper();
+			var shapedString = "";
+			
+			if (this.numericShaperType === "National") {
+				ob.getShaper(ob.ARABIC); // National
+			} else if (this.numericShaperType === "Contextual") {
+				ob.getContextualShaper(ob.ARABIC, ob.EUROPEAN); // Contextual Arabic
+			} else {
+				ob.getShaper(ob.EUROPEAN); // Nominal
+			}
+
+			if (text) {
+				shapedString = ob.shapeWith(this.numericShaperType, text).join("");
+			}
+			
+			return shapedString;
 		}
+		
 	};
 });
