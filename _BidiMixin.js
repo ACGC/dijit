@@ -198,7 +198,7 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper
 			//this.watch("label", this._changeHandler);
 			if (this.label)
 				this.label = this.applyNumericShaping(this.label);
-			/*
+			
 			if (this.displayedValue)
 				this.displayedValue = this.applyNumericShaping(this.displayedValue);
 			
@@ -217,7 +217,7 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper
 			if(this.options){
 				for(var i = 0; i < this.options.length; i++)
 					this.options[i].label =  this.applyNumericShaping(this.options[i].label);
-			}*/
+			}
 		},
 		applyNumericShaping : function( /*String?*/ text) {
 			// summary:
