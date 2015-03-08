@@ -1,4 +1,4 @@
-define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper, on){
+define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query"], function(NumericShaper, on, query){
 
 	// module:
 	//		dijit/_BidiMixin
@@ -36,7 +36,19 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper
 		//		By default is as the page direction.
 		textDir: "",
 		
-		numericShaperType: "Nominal", // just for testing -should be dynamically changed.
+		// numericShaperType: String
+		//		Bi-directional support,	the variable which is responsible for the shaping type of the digits.
+		//		Arabic and many other languages have classical shapes for digits “National Digits” that are different from the conventional Western Digits (European).
+		//		National digits have the same semantic meaning as the European digits. The difference is only a difference in glyphs.
+		//
+		//		Allowed values:
+		//
+		//		1. "Nominal"  - The digit shapes will be Arabic-European.
+		//		2. "National" - The digit shapes will be Arabic-Indic.
+		//		3. "Contextual" - Digit shapes are determined from adjoining characters in the value.
+		//
+		//		By default it is "Nominal"/Arabic-European digits.
+		numericShaperType: "Nominal",
 		
 		getNumericShaperType: function(){
 			// summary:
@@ -50,6 +62,8 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper
 			//		Sets the numeric shaping type of the widget.
 			
 			this.numericShaperType = type;
+			// should we call _checkNumericShapingAttr() here ?
+			// so that calling widget.setNumericShaperType() immediately affect the widget's digits.
 		},
 
 		getTextDir: function(/*String*/ text){
@@ -110,9 +124,9 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper
 					element.dir = textDir;
 				}
 			}
-			if(element.value){
-				element.value = this.applyNumericShaping(element.value);	
-			}
+//			if(element.value){
+//				element.value = this.applyNumericShaping(element.value);	
+//			}
 		},
 
 		enforceTextDirWithUcc: function(option, text){
@@ -174,58 +188,84 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper
 				}
 			}
 		},
-		preamble: function(){
-			this.inherited(arguments);
-			//on(this,"keyup",this._changeHandler);
-			//if(this.setLabel)
-			//this._setLabelAttr = this._changeHandler;
-			//on("_setLabelAttr",this._changeHandler);
-			//this.watch("label", this._changeHandler);
+		
+		_changeHandler: function(attr, oldVal, newVal){
+			//alert(v+"-"+m+"-"+n)
+			//if(v == "displayedValue")
+			this.set(attr, this.applyNumericShaping(newVal));
 		},
-		_changeHandler: function(v,m,n){
-			if(this.label)
-			this.label= this.applyNumericShaping(this.label);
-			//alert("pepsi");
-			
-		},
-		/**
-		 * it will be invoked before rendering occurs, and before any dom nodes are created. 
-		 * If you need to add or change the instance’s properties before the widget is rendered - this is the place to do it.
-		 * 
-		 */
-		postMixInProperties : function(){
+		
+		postMixInProperties: function(){
 			this.inherited(arguments);
-			//this.watch("label", this._changeHandler);
-			if (this.label)
-				this.label = this.applyNumericShaping(this.label);
-			
-			if (this.displayedValue)
-				this.displayedValue = this.applyNumericShaping(this.displayedValue);
-			
-			if (this.optionsTitle)
-				this.optionsTitle = this.applyNumericShaping(this.optionsTitle);
-
-			if (this.content)
-				this.content = this.applyNumericShaping(this.content);
-
-			if (this.title)
-				this.title = this.applyNumericShaping(this.title);
-
-			if (this.tooltip)
-				this.tooltip = this.applyNumericShaping(this.tooltip);
-
-			if(this.options){
-				for(var i = 0; i < this.options.length; i++)
-					this.options[i].label =  this.applyNumericShaping(this.options[i].label);
+			if(this.numericShaperType != "Nominal"){
+				//Ruler
+				if(this.labels){
+					this.labels = this.getLabels();
+					for(var i = 0; i < this.labels.length; i++)
+						this.labels[i] =  this.applyNumericShaping(this.labels[i]);
+				}
 			}
 		},
-		applyNumericShaping : function( /*String?*/ text) {
-			// summary:
-			//		Apply the shaping behavior
+		
+		postCreate : function(){
+			this.inherited(arguments);
+			if(this.numericShaperType != "Nominal")
+				this._checkNumericShapingAttr();
+		},
+		
+		_checkNumericShapingAttr: function (){
+			//Button, CheckBox, RadioButton
+			if (this.label){
+				this.set("label", this.applyNumericShaping(this.label));
+			}
+			
+			// TextBox family
+			if (this.displayedValue){
+				this.set("displayedValue", this.applyNumericShaping(this.displayedValue));
+			}
+			
+			if (this.optionsTitle)
+				this.set("optionsTitle", this.applyNumericShaping(this.optionsTitle));
 
-			if(!text)
-				return;
-			text = new String(text);  // fix for text.split runtime exception
+			if (this.content)
+				this.set("content", this.applyNumericShaping(this.content));
+
+			// All widgets (CheckBox, RadioButton)
+			if (this.title){
+				this.set("title", this.applyNumericShaping(this.title));
+			}
+			
+			// All widgetss
+			if (this.tooltip){
+				this.set("tooltip", this.applyNumericShaping(this.tooltip));
+			}
+			
+			//Select
+			if(this.options){ 
+				var nOptions = this.options;
+				for(var i = 0; i < this.options.length; i++)
+					nOptions[i].label =  this.applyNumericShaping(this.options[i].label);
+				this.set('options', nOptions);
+			}
+
+			// MultiSelect, ComboBox, FilteringSelect
+			query("option", this.containerNode).forEach(function(option){
+				if(option.text)
+					option.text = this.applyNumericShaping(option.text);
+			}, this);
+			
+			this.watch("label", this._changeHandler);
+			this.watch("displayedValue", this._changeHandler);
+			this.watch("title", this._changeHandler);
+			this.watch("tooltip", this._changeHandler);
+		},
+		
+		applyNumericShaping : function( /*String?*/ text, /*optional*/ shaperType) {
+			// summary:
+			//		Apply the shaping behavior.
+
+			text = new String(text);
+			shaperType = shaperType || this.numericShaperType;
 			var ob = new NumericShaper();
 			var shapedString = "";
 			
@@ -238,7 +278,7 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on"], function(NumericShaper
 			}
 
 			if (text) {
-				shapedString = ob.shapeWith(this.numericShaperType, text).join("");
+				shapedString = ob.shapeWith(shaperType, text).join("");
 			}
 			
 			return shapedString;

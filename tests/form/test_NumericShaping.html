@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 
@@ -14,9 +14,7 @@
 
 <script type="text/javascript">
 
-			/*require([
-
-				"dijit/form/TextBox",
+			/*require([	"dijit/form/TextBox",
 				"dijit/form/CurrencyTextBox",
 				"dijit/form/DateTextBox",
 				"dijit/form/TimeTextBox",
@@ -26,7 +24,7 @@
 				"dojo/domReady!"
 			], function(){
 				
-
+var Textbox = new diji.form.TextBox("id",{title:'x', value:''});
 			});*/
 
 		</script>
@@ -42,7 +40,7 @@
 	<br/>
 
 	<br /> CurrencyTextBox
-	<input id="CurrencyTextBox1" dojoType="dijit/form/CurrencyTextBox" />
+	<input id="CurrencyTextBox1" dojoType="dijit/form/CurrencyTextBox"/>
 	<br> TextBox
 	<input id="TextBox1" dojoType="dijit/form/TextBox" />
 	<br> DateTextBox
@@ -81,7 +79,11 @@
 	<br>
 	<input id="Button2" dojoType="dijit/form/Button" label="ابجد123" />
 	<br>
+	<button id="Button3" dojoType="dijit/form/Button" >abc123</button>
+	<br>
 	<input id="checkBox1" dojoType="dijit/form/CheckBox" /> <label for="checkBox1">I agree123</label>
+	<br>
+	<div id="checkBox2" data-dojo-type="dijit/form/CheckBox" title="n123"></div>
 	<br>
 </body>
 </html>

@@ -147,6 +147,7 @@ define([
 					ownerDocument: this.ownerDocument,
 					dir: this.dir,
 					textDir: this.textDir,
+					numericShaperType: this.numericShaperType,
 					disabled: option.disabled || false
 				});
 				item.focusNode.setAttribute("role", "option");
