@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en" />
@@ -13,76 +13,139 @@
 </head>
 <body class="claro" numericShaperType="National">
 
-<div data-dojo-type="dijit/form/Form" enctype="multipart/form-data" action="" method="POST">
-<div data-dojo-type="dojox/layout/TableContainer" data-dojo-props="cols:1">
-<div data-dojo-type="dijit/form/TextBox" title="TextBox123:" name="text_box" value="Some text123"></div>
-<div data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="currency:'USD', invalidMessage:'Invalid value'" title="CurrencyTextBox123:" name="currency_text_box" value="666.99"></div>
-<div data-dojo-type="dijit/form/DateTextBox" title="DateTextBox123:" name="date_text_box" value="2013-06-22"></div>
-<div data-dojo-type="dijit/form/NumberSpinner" title="NumberSpinner123:" name="number_spinner" value="123"></div>
-<div data-dojo-type="dijit/form/NumberTextBox" title="NumberTextBox123:" name="number_text_box" value="123"></div>
-<div data-dojo-type="dijit/form/TimeTextBox" title="TimeTextBox123:" name="time_text_box" value="T11:12:13"></div>
-<div data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="regExp:'^[a-zA-Z]+$', invalidMessage:'Invalid value'" title="ValidationTextBox123:" name="validation_text_box" value="CharactersOnly123"></div>
-<div data-dojo-type="dijit/form/Textarea" title="Textarea123:" name="textarea" value="Some text in Textarea123"></div>
-<select data-dojo-type="dijit/form/Select" title="Select123:" name="select">
-<option value="Johnnie Walker">Johnnie Walker123</option>
-<option value="Jack Daniels">Jack Daniels123</option>
-<option value="Grant's Scotch">Grant's Scotch123</option>
-</select>
-<select data-dojo-type="dijit/form/ComboBox" title="ComboBox123:" name="combo_box">
-<option value="Johnnie Walker">Johnnie Walker123</option>
-<option value="Jack Daniels">Jack Daniels123</option>
-<option value="Grant's Scotch">Grant's Scotch123</option>
-</select>
-<select data-dojo-type="dijit/form/MultiSelect" title="MultiSelect123:" name="multi_select">
-<option value="Johnnie Walker">Johnnie Walker123</option>
-<option value="Jack Daniels">Jack Daniels123</option>
-<option value="Grant's Scotch">Grant's Scotch123</option>
-</select>
-<select data-dojo-type="dijit/form/FilteringSelect" title="FilteringSelect123:" name="filtering_select">
-<option value="Johnnie Walker">Johnnie Walker123</option>
-<option value="Jack Daniels">Jack Daniels123</option>
-<option value="Grant's Scotch">Grant's Scotch123</option>
-</select>
-<div data-dojo-type="dijit/form/CheckBox" label="CheckBox1234:" name="check_box"></div>
-<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:" name="radio_button" value="xxx"></div>
-<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:" name="radio_button" value="xxx"></div>
-<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:" name="radio_button" value="xxx"></div>
-<div data-dojo-type="dijit/form/HorizontalSlider" data-dojo-props="" title="HorizontalSlider123:">
-<ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="topDecoration" style="height:1.5em; font-size:0.7em;">
-<li>0%</li>
-<li></li>
-<li>50%</li>
-<li></li>
-<li>100%</li>
-</ol>
-<ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="bottomDecoration" style="height:1.5em; font-size:0.7em;">
-<li></li>
-<li>25%</li>
-<li></li>
-<li>75%</li>
-<li></li>
-</ol>
-</div>
-<div data-dojo-type="dijit/form/VerticalSlider" data-dojo-props="" title="VerticalSlider123:" style="height:300px">
-<ol data-dojo-type="dijit/form/VerticalRuleLabels" container="leftDecoration" style="height:300px; width:30px; font-size:0.7em;">
-<li>0%</li>
-<li></li>
-<li>50%</li>
-<li></li>
-<li>100%</li>
-</ol>
-<ol data-dojo-type="dijit/form/VerticalRuleLabels" container="rightDecoration" style="height:300px; width:30px; font-size:0.7em;">
-<li></li>
-<li>25%</li>
-<li></li>
-<li>75%</li>
-<li></li>
-</ol>
-</div>
-</div>
-<button id="btnSubmit" data-dojo-type="dijit/form/Button" type="button" role="button" label="submit1235">Submit123</button>
-</div>
-<h2>No plugins Editor</h2>
-	<div data-dojo-type="dijit/Editor" data-dojo-props="plugins:[], height:'100', 'aria-label':'applied with aria'" id="editor0">Editor123</div>
+	<div data-dojo-type="dijit/form/Form" enctype="multipart/form-data"
+		action="" method="POST">
+		<div data-dojo-type="dojox/layout/TableContainer"
+			data-dojo-props="cols:1">
+			<div data-dojo-type="dijit/form/TextBox" title="TextBox123:"
+				name="text_box" value="Some text123"></div>
+			<div data-dojo-type="dijit/form/CurrencyTextBox"
+				data-dojo-props="currency:'USD', invalidMessage:'Invalid value'"
+				title="CurrencyTextBox123:" name="currency_text_box" value="666.99"></div>
+			<div data-dojo-type="dijit/form/DateTextBox" title="DateTextBox123:"
+				name="date_text_box" value="2013-06-22"></div>
+			<div data-dojo-type="dijit/form/NumberSpinner"
+				title="NumberSpinner123:" name="number_spinner" value="123"></div>
+			<div data-dojo-type="dijit/form/NumberTextBox"
+				title="NumberTextBox123:" name="number_text_box" value="123"></div>
+			<div data-dojo-type="dijit/form/TimeTextBox" title="TimeTextBox123:"
+				name="time_text_box" value="T11:12:13"></div>
+			<div data-dojo-type="dijit/form/ValidationTextBox"
+				data-dojo-props="regExp:'^[a-zA-Z]+$', invalidMessage:'Invalid value'"
+				title="ValidationTextBox123:" name="validation_text_box"
+				value="CharactersOnly123"></div>
+			<div data-dojo-type="dijit/form/Textarea" title="Textarea123:"
+				name="textarea" value="Some text in Textarea123"></div>
+			<select data-dojo-type="dijit/form/Select" title="Select123:"
+				name="select">
+				<option value="Johnnie Walker">Johnnie Walker123</option>
+				<option value="Jack Daniels">Jack Daniels123</option>
+				<option value="Grant's Scotch">Grant's Scotch123</option>
+			</select> <select data-dojo-type="dijit/form/ComboBox" title="ComboBox123:"
+				name="combo_box">
+				<option value="Johnnie Walker">Johnnie Walker123</option>
+				<option value="Jack Daniels">Jack Daniels123</option>
+				<option value="Grant's Scotch">Grant's Scotch123</option>
+			</select> <select data-dojo-type="dijit/form/MultiSelect"
+				title="MultiSelect123:" name="multi_select">
+				<option value="Johnnie Walker">Johnnie Walker123</option>
+				<option value="Jack Daniels">Jack Daniels123</option>
+				<option value="Grant's Scotch">Grant's Scotch123</option>
+			</select> <select data-dojo-type="dijit/form/FilteringSelect"
+				title="FilteringSelect123:" name="filtering_select">
+				<option value="Johnnie Walker">Johnnie Walker123</option>
+				<option value="Jack Daniels">Jack Daniels123</option>
+				<option value="Grant's Scotch">Grant's Scotch123</option>
+			</select>
+			<div data-dojo-type="dijit/form/CheckBox" label="CheckBox1234:"
+				name="check_box"></div>
+			<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
+				name="radio_button" value="xxx"></div>
+			<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
+				name="radio_button" value="xxx"></div>
+			<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
+				name="radio_button" value="xxx"></div>
+			<div data-dojo-type="dijit/form/HorizontalSlider" data-dojo-props=""
+				title="HorizontalSlider123:">
+				<ol data-dojo-type="dijit/form/HorizontalRuleLabels"
+					container="topDecoration" style="height: 1.5em; font-size: 0.7em;">
+					<li>0%</li>
+					<li></li>
+					<li>50%</li>
+					<li></li>
+					<li>100%</li>
+				</ol>
+				<ol data-dojo-type="dijit/form/HorizontalRuleLabels"
+					container="bottomDecoration"
+					style="height: 1.5em; font-size: 0.7em;">
+					<li></li>
+					<li>25%</li>
+					<li></li>
+					<li>75%</li>
+					<li></li>
+				</ol>
+			</div>
+			<div data-dojo-type="dijit/form/VerticalSlider" data-dojo-props=""
+				title="VerticalSlider123:" style="height: 300px">
+				<ol data-dojo-type="dijit/form/VerticalRuleLabels"
+					container="leftDecoration"
+					style="height: 300px; width: 30px; font-size: 0.7em;">
+					<li>0%</li>
+					<li></li>
+					<li>50%</li>
+					<li></li>
+					<li>100%</li>
+				</ol>
+				<ol data-dojo-type="dijit/form/VerticalRuleLabels"
+					container="rightDecoration"
+					style="height: 300px; width: 30px; font-size: 0.7em;">
+					<li></li>
+					<li>25%</li>
+					<li></li>
+					<li>75%</li>
+					<li></li>
+				</ol>
+			</div>
+		</div>
+		<button id="btnSubmit" data-dojo-type="dijit/form/Button"
+			type="button" role="button" label="submit1235">Submit123</button>
+	</div>
+	<h2>No plugins Editor</h2>
+	<div data-dojo-type="dijit/Editor"
+		data-dojo-props="plugins:[], height:'100', 'aria-label':'applied with aria'"
+		id="editor0">Editor123</div>
+	<br> ComboButton
+	<button id="comboCreate" title="creative title123"
+		data-dojo-type="dijit/form/ComboButton"
+		data-dojo-props='optionsTitle:"save options123", onClick:function(){ console.log("clicked combo create") },
+				iconClass:"plusIcon"'>
+		<span>Create123</span> <span id="createMenu"
+			data-dojo-type="dijit/Menu"> <span
+			data-dojo-type="dijit/MenuItem"
+			data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconSave",
+					onClick:function(){ console.log("not actually saving anything, just a test!"); }'>Create
+				blank123</span> <span data-dojo-type="dijit/MenuItem"
+			data-dojo-props='onClick:function(){ console.log("not actually saving anything, just a test!"); }'>Create
+				from template123</span> </span>
+	</button>
+	<br> DropDown Button
+	<button id="SubmitDropDown" data-dojo-type="dijit/form/DropDownButton"
+		title="SubmitDropDown title123" name="DropDown" value="DropDown 123"
+		data-dojo-props="label: 'DropDown Submit123'">
+		DropDown 123 <span data-dojo-type="dijit/Menu"> <span
+			id="SubmitDropDownMenuItem1" data-dojo-type="dijit/MenuItem">DropDown
+				submit123</span> <span id="SubmitDropDownMenuItem2"
+			data-dojo-type="dijit/MenuItem">DropDown MenuItem 123</span> </span>
+	</button>
+	<br> Toggle Button
+	<button id="toggle1" title="toggle title123" checked data-dojo-type="dijit/form/ToggleButton" data-dojo-props='
+			onChange:function(val){
+				console.log("toggled button checked="+val);
+				this.set("label", val ? "toggle me off1234" : "toggle me on1234");
+			}, iconClass:"dijitCheckBoxIcon"'>
+			Toggle me off123
+		</button>
+	<br>
+
 </body>
 </html>
