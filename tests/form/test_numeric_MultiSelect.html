@@ -12,19 +12,32 @@
 	
 	<script type="text/javascript" >
 	
-	dojo.require("dijit.form.Button");
-	dojo.require("dijit.form.Select");
-	dojo.require("dojo.parser");
-
-	dojo.ready(function() {
-	    
-	})
-	
 	function addOpts(){
-		
-		 var o = dojo.create("option", {label: "a", value: "b"});
-		 
-		 dijit.byId('ms1').adOption(o);
+        
+	    require(["dijit/registry"],function(registry){
+	        
+	        var msObj = registry.byId('ms1');
+	        
+	        var i,selectbox;
+	        selectbox = msObj.domNode;
+	        
+	        for(i=selectbox.options.length-1;i>=0;i--)
+	        {
+	            if(selectbox.options[i].selected)
+	            selectbox.remove(i);
+	        }
+	        function addOption(selectbox,text,value )
+	        {
+	            var optn = document.createElement("OPTION");
+	            optn.text = text;
+	            optn.value = value;
+	            selectbox.options.add(optn);
+	        };
+	        addOption(selectbox,'abc123','val1');
+	        addOption(selectbox,'أب 123','val2');
+	        addOption(selectbox,'9876','val3');
+	    });
+	        
 	}
 	</script>
 
@@ -40,8 +53,8 @@
 			
 			<select id="ms1" data-dojo-id="ms1" data-dojo-type="dijit/form/MultiSelect"
 				title="MultiSelect123:" name="multi_select">
-				<option value="English 123">English 123</option>
-				<option value="عربي 123">   عربي 123  </option>
+				<option value="op1">English 123</option>
+				<option value="val2">   عربي 123  </option>
 				<option value="1234.56">1234.56</option>
 			</select> 
 
@@ -49,6 +62,6 @@
 		</div>
 	<br>
 	
-	<button dojoType="dijit.form.Button" onclick="addOpts()">Add Options</button>
+	<button onclick="addOpts(); return false;">Add Options</button>
 </body>
 </html>
