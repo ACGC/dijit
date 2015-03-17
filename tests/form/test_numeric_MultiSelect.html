@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+<title>MultiSelect Numeric Shaping Test</title>
+<link id="themeStyles" rel="stylesheet"
+	href="../../../dijit/themes/claro/claro.css" />
+
+<script type="text/javascript" src="../../../dojo/dojo.js"
+	data-dojo-config="parseOnLoad: true, isDebug: true, has:{'dojo-bidi': true}"></script>
+	
+	<script type="text/javascript" >
+	
+	dojo.require("dijit.form.Button");
+	dojo.require("dijit.form.Select");
+	dojo.require("dojo.parser");
+
+	dojo.ready(function() {
+	    
+	})
+	
+	function addOpts(){
+		
+		 var o = dojo.create("option", {label: "a", value: "b"});
+		 
+		 dijit.byId('ms1').adOption(o);
+	}
+	</script>
+
+</head>
+<body class="claro" numericShaperType="National">
+
+<h2>Multiselect Numeric Shaping Dynamic Test</h2>
+<h3>Click on test button to see new data loaded in the multiselect widget</h3>
+	<div data-dojo-type="dijit/form/Form" enctype="multipart/form-data"
+		action="" method="POST">
+		<div data-dojo-type="dojox/layout/TableContainer"
+			data-dojo-props="cols:1">
+			
+			<select id="ms1" data-dojo-id="ms1" data-dojo-type="dijit/form/MultiSelect"
+				title="MultiSelect123:" name="multi_select">
+				<option value="English 123">English 123</option>
+				<option value="عربي 123">   عربي 123  </option>
+				<option value="1234.56">1234.56</option>
+			</select> 
+
+			
+		</div>
+	<br>
+	
+	<button dojoType="dijit.form.Button" onclick="addOpts()">Add Options</button>
+</body>
+</html>
