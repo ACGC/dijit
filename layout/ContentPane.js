@@ -548,7 +548,8 @@ define([
 				startup: false,
 				dir: this.dir,
 				lang: this.lang,
-				textDir: this.textDir
+				textDir: this.textDir,
+				numericShaperType: this.numericShaperType
 			}, this._contentSetterParams || {});
 
 			var p = setter.set((lang.isObject(cont) && cont.domNode) ? cont.domNode : cont, setterParams);

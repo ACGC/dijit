@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+<title>Select Numeric Shaping Test</title>
+<link id="themeStyles" rel="stylesheet"
+	href="../../../dijit/themes/claro/claro.css" />
+
+<script type="text/javascript" src="../../../dojo/dojo.js"
+	data-dojo-config="parseOnLoad: true, isDebug: true, has:{'dojo-bidi': true}"></script>
+
+<script type="text/javascript">
+	function addOpts() {
+
+		dojo.require("dijit.form.CheckBox");
+
+		dojo.ready(function(){    
+		    // https://bugs.dojotoolkit.org/ticket/11611
+		    var widgetNode = dojo.doc.createElement("DIV");
+		    chk = dojo.create("input", {id:"cbox", type:"checkbox"}, widgetNode);
+		    lbl = dojo.create("label", {innerHTML:"عربي1234", "for":"cbox"}, widgetNode);
+		   
+		    var cbWidget = new dijit.form.CheckBox({}, chk);
+		    cbWidget.startup();
+		    cbWidget.domNode.appendChild(lbl);
+
+		    dojo.place(lbl,"container");
+		    dojo.place(cbWidget.domNode, "container");
+		    
+		    document.getElementById("b1").disabled = true; 
+		});
+		
+	}
+</script>
+
+</head>
+<body class="claro" numericShaperType="National">
+
+	<h2>Checkbox Numeric Shaping Dynamic Test</h2>
+	<h3>Click on test button to see new data loaded in the Select widget
+		widget</h3>
+	<div data-dojo-type="dijit/form/Form" enctype="multipart/form-data"
+		action="" method="POST">
+		<div data-dojo-type="dojox/layout/TableContainer"
+			data-dojo-props="cols:1">
+
+		<div data-dojo-type="dijit/form/CheckBox"  label="CheckBox1234:"
+			name="check_box"></div>
+			<br>
+		</div>
+		<br>
+		<div id="container"></div>
+		<br>
+
+		<button id="b1" onclick="addOpts(); return false;">Add Option</button>
+		<br>
+		
+</body>
+</html>

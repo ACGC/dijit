@@ -1,4 +1,4 @@
-define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query"], function(NumericShaper, on, query){
+define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/aspect"], function(NumericShaper, on, query, aspect){
 
 	// module:
 	//		dijit/_BidiMixin
@@ -188,21 +188,38 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query"], function
 				}
 			}
 		},
-		
-		_changeHandler: function(attr, oldVal, newVal){
-			//alert(v+"-"+m+"-"+n)
-			//if(v == "displayedValue")
-			this.set(attr, this.applyNumericShaping(newVal));
-		},
-		
+
 		postMixInProperties: function(){
 			this.inherited(arguments);
+			
+			aspect.before(this,"set", function(name, value){
+				if(["label", "title", "placeHolder", "content", "value"].indexOf(name) > -1 && typeof value === 'string'){
+					value = this.applyNumericShaping(value);
+				}
+				return arguments;
+			});
+			
+			// select [displayed value]
+			aspect.before(this,"_setDisplay", function(newDisplay){
+				newDisplay = this.applyNumericShaping(newDisplay);
+				return arguments;
+			});
+			
+			// ProgressBar [value must be a valid Number]
+			aspect.after(this,"report", function(newDisplay){
+				return this.applyNumericShaping(newDisplay);
+			});
+			
 			if(this.numericShaperType != "Nominal"){
 				//Ruler
 				if(this.labels){
 					this.labels = this.getLabels();
 					for(var i = 0; i < this.labels.length; i++)
 						this.labels[i] =  this.applyNumericShaping(this.labels[i]);
+				}
+				//ComboButton
+				if (this.optionsTitle){
+					this.set("optionsTitle", this.applyNumericShaping(this.optionsTitle));
 				}
 			}
 		},
@@ -213,40 +230,35 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query"], function
 				this._checkNumericShapingAttr();
 		},
 		
-		_checkNumericShapingAttr: function (){
-			//Button, CheckBox, RadioButton
-			if (this.label){
-				this.set("label", this.applyNumericShaping(this.label));
-			}
+		_changeHandler: function(attr, oldVal, newVal){
 			
-			// TextBox family
+			this.set(attr, this.applyNumericShaping(newVal));
+		},
+
+		_checkNumericShapingAttr: function (){
+			//Button, CheckBox, RadioButton, ComboButton
+//			if (this.label){
+//				this.set("label", this.applyNumericShaping(this.label));
+//			}
+			
+			// Textbox, CurrencyTextBox, DateTextBox, NumberSpinner
+			// NumberTextBox, TimeTextBox, ValidationTextBox
+			// SimpleTextArea
 			if (this.displayedValue){
 				this.set("displayedValue", this.applyNumericShaping(this.displayedValue));
 			}
+			// SimpleTextArea
+//			if (this.value && typeof this.value === 'string'){
+//				this.set("value", this.applyNumericShaping(this.value));
+//			}
 			
-			if (this.optionsTitle)
-				this.set("optionsTitle", this.applyNumericShaping(this.optionsTitle));
-
-			if (this.content)
-				this.set("content", this.applyNumericShaping(this.content));
-
-			// All widgets (CheckBox, RadioButton)
-			if (this.title){
-				this.set("title", this.applyNumericShaping(this.title));
-			}
-			
-			// All widgetss
-			if (this.tooltip){
-				this.set("tooltip", this.applyNumericShaping(this.tooltip));
-			}
-			
-			//Select
-			if(this.options){ 
+			//Select  // no need for this code 
+			/*if(this.options){ 
 				var nOptions = this.options;
 				for(var i = 0; i < this.options.length; i++)
 					nOptions[i].label =  this.applyNumericShaping(this.options[i].label);
 				this.set('options', nOptions);
-			}
+			}*/
 
 			// MultiSelect, ComboBox, FilteringSelect
 			query("option", this.containerNode).forEach(function(option){
@@ -254,10 +266,7 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query"], function
 					option.text = this.applyNumericShaping(option.text);
 			}, this);
 			
-			this.watch("label", this._changeHandler);
 			this.watch("displayedValue", this._changeHandler);
-			this.watch("title", this._changeHandler);
-			this.watch("tooltip", this._changeHandler);
 		},
 		
 		applyNumericShaping : function( /*String?*/ text, /*optional*/ shaperType) {

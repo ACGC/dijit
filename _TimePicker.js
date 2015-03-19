@@ -264,7 +264,8 @@ define([
 				// Doesn't match the filter - return null
 				return null;
 			}
-
+			if(has("dojo-bidi"))
+				dateString = this.applyNumericShaping(dateString);
 			var div = this.ownerDocument.createElement("div");
 			div.className = this.baseClass + "Item";
 			div.date = date;

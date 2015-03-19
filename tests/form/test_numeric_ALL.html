@@ -9,6 +9,56 @@
 
 <script type="text/javascript" src="../../../dojo/dojo.js"
 	data-dojo-config="parseOnLoad: true, isDebug: true, has:{'dojo-bidi': true}"></script>
+	
+<script type="text/javascript" >
+
+	var widgetAttr = [{"widId":"textBox1","widAttr":["title"]},
+	                  {"widId":"currencyBox1","widAttr":["title"]},
+	                  {"widId":"dateBox1","widAttr":["title"]},
+	                  {"widId":"numSpinBox1","widAttr":["title"]},
+	                  {"widId":"numBox1","widAttr":["title"]},
+	                  {"widId":"timeBox1","widAttr":["title"]},
+	                  {"widId":"validBox1","widAttr":["title"]},
+	                  {"widId":"areaBox1","widAttr":["title"]},
+	                  {"widId":"selectBox1","widAttr":["title"]},
+	                  {"widId":"comboBox1","widAttr":["title"]},
+	                  {"widId":"multiBox1","widAttr":["title"]},
+	                  {"widId":"filterBox1","widAttr":["title"]},
+	                  {"widId":"checkBox1","widAttr":["title", "label"]},
+	                  {"widId":"radioBox1","widAttr":["title", "label"]},
+	                  {"widId":"radioBox2","widAttr":["title", "label"]},
+	                  {"widId":"radioBox3","widAttr":["title", "label"]},
+	                  {"widId":"horizBox1","widAttr":["title"]},
+	                  {"widId":"vertBox1","widAttr":["title"]},
+	                  {"widId":"btnSubmit","widAttr":["title", "label"]},
+	                  {"widId":"editor0","widAttr":["title"]},
+	                  {"widId":"ComboButton1","widAttr":["title", "label"]},
+	                  {"widId":"DropDownButton1","widAttr":["title", "label"]},
+	                  {"widId":"toggle1","widAttr":["title", "label"]},
+	                  {"widId":"DropDownMenu1","widAttr":["title", "label"]},
+	                  {"widId":"myDialog1","widAttr":["title", "content"]},
+	                  {"widId":"fs1","widAttr":["title", "content"]},
+	                  {"widId":"editable1","widAttr":["title", "value"]},
+	                  {"widId":"myProgressBar1","widAttr":["title"]},
+	                  {"widId":"tp1","widAttr":["title", "content"]},
+					];
+	
+	function changeAttr(){
+		widgetAttr.forEach(function(obj) {
+			var wid = dijit.byId(obj.widId);
+			
+			obj.widAttr.forEach(function(entry){
+				//console.log(entry)
+				wid.set(entry, "new_Dynamic_"+entry+"9595");
+				
+			});
+			
+			if(wid.id=="myProgressBar1")
+				wid.set("value", 30);
+		});
+	}
+	
+</script>
 
 </head>
 <body class="claro" numericShaperType="National">
@@ -17,56 +67,58 @@
 		action="" method="POST">
 		<div data-dojo-type="dojox/layout/TableContainer"
 			data-dojo-props="cols:1">
-			<div data-dojo-type="dijit/form/TextBox" title="TextBox123:"
-				name="text_box" value="Some text123"></div>
-			<div data-dojo-type="dijit/form/CurrencyTextBox"
+			<div id="textBox1" data-dojo-type="dijit/form/TextBox" title="TextBox123:"
+				name="text_box" placeHolder="Some text123"></div>
+			<div id="currencyBox1" data-dojo-type="dijit/form/CurrencyTextBox"
 				data-dojo-props="currency:'USD', invalidMessage:'Invalid value'"
 				title="CurrencyTextBox123:" name="currency_text_box" value="666.99"></div>
-			<div data-dojo-type="dijit/form/DateTextBox" title="DateTextBox123:"
+			<div id="dateBox1" data-dojo-type="dijit/form/DateTextBox" title="DateTextBox123:"
 				name="date_text_box" value="2013-06-22"></div>
-			<div data-dojo-type="dijit/form/NumberSpinner"
+			<div id="numSpinBox1" data-dojo-type="dijit/form/NumberSpinner"
 				title="NumberSpinner123:" name="number_spinner" value="123"></div>
-			<div data-dojo-type="dijit/form/NumberTextBox"
+			<div id="numBox1" data-dojo-type="dijit/form/NumberTextBox"
 				title="NumberTextBox123:" name="number_text_box" value="123"></div>
-			<div data-dojo-type="dijit/form/TimeTextBox" title="TimeTextBox123:"
+			<div id="timeBox1" data-dojo-type="dijit/form/TimeTextBox" title="TimeTextBox123:"
 				name="time_text_box" value="T11:12:13"></div>
-			<div data-dojo-type="dijit/form/ValidationTextBox"
+			<div id="validBox1" data-dojo-type="dijit/form/ValidationTextBox"
 				data-dojo-props="regExp:'^[a-zA-Z]+$', invalidMessage:'Invalid value'"
 				title="ValidationTextBox123:" name="validation_text_box"
 				value="CharactersOnly123"></div>
-			<div data-dojo-type="dijit/form/Textarea" title="Textarea123:"
+			<div id="areaBox1" data-dojo-type="dijit/form/Textarea" title="Textarea123:"
 				name="textarea" value="Some text in Textarea123"></div>
-			<select data-dojo-type="dijit/form/Select" title="Select123:"
+			<select id="selectBox1" data-dojo-type="dijit/form/Select" title="Select123:"
 				name="select">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
-			</select> <select data-dojo-type="dijit/form/ComboBox" title="ComboBox123:"
+			</select>
+			 <select id="comboBox1" data-dojo-type="dijit/form/ComboBox" title="ComboBox123:"
 				name="combo_box">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
-			</select> <select data-dojo-type="dijit/form/MultiSelect"
+			</select>
+			<select id="multiBox1" data-dojo-type="dijit/form/MultiSelect"
 				title="MultiSelect123:" name="multi_select">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
-			</select> <select data-dojo-type="dijit/form/FilteringSelect"
+			</select>
+			<select id="filterBox1" data-dojo-type="dijit/form/FilteringSelect"
 				title="FilteringSelect123:" name="filtering_select">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
 			</select>
-			<div data-dojo-type="dijit/form/CheckBox" label="CheckBox1234:"
+			<div id="checkBox1" data-dojo-type="dijit/form/CheckBox" label="CheckBox1234:"
 				name="check_box"></div>
-			<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
+			<div id="radioBox1" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
 				name="radio_button" value="xxx"></div>
-			<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
+			<div id="radioBox2" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
 				name="radio_button" value="xxx"></div>
-			<div data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
+			<div id="radioBox3" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
 				name="radio_button" value="xxx"></div>
-			<div data-dojo-type="dijit/form/HorizontalSlider" data-dojo-props=""
-				title="HorizontalSlider123:">
+			<div id="horizBox1" data-dojo-type="dijit/form/HorizontalSlider" title="HorizontalSlider123:">
 				<ol data-dojo-type="dijit/form/HorizontalRuleLabels"
 					container="topDecoration" style="height: 1.5em; font-size: 0.7em;">
 					<li>0%</li>
@@ -85,8 +137,7 @@
 					<li></li>
 				</ol>
 			</div>
-			<div data-dojo-type="dijit/form/VerticalSlider" data-dojo-props=""
-				title="VerticalSlider123:" style="height: 300px">
+			<div id="vertBox1" data-dojo-type="dijit/form/VerticalSlider" title="VerticalSlider123:" style="height: 300px">
 				<ol data-dojo-type="dijit/form/VerticalRuleLabels"
 					container="leftDecoration"
 					style="height: 300px; width: 30px; font-size: 0.7em;">
@@ -115,7 +166,7 @@
 		data-dojo-props="plugins:[], height:'100', 'aria-label':'applied with aria'"
 		id="editor0">Editor123</div>
 	<br> ComboButton
-	<button id="comboCreate" title="creative title123"
+	<button id="ComboButton1" title="creative title123"
 		data-dojo-type="dijit/form/ComboButton"
 		data-dojo-props='optionsTitle:"save options123", onClick:function(){ console.log("clicked combo create") },
 				iconClass:"plusIcon"'>
@@ -129,7 +180,7 @@
 				from template123</span> </span>
 	</button>
 	<br> DropDown Button
-	<button id="SubmitDropDown" data-dojo-type="dijit/form/DropDownButton"
+	<button id="DropDownButton1" data-dojo-type="dijit/form/DropDownButton"
 		title="SubmitDropDown title123" name="DropDown" value="DropDown 123"
 		data-dojo-props="label: 'DropDown Submit123'">
 		DropDown 123 <span data-dojo-type="dijit/Menu"> <span
@@ -138,14 +189,148 @@
 			data-dojo-type="dijit/MenuItem">DropDown MenuItem 123</span> </span>
 	</button>
 	<br> Toggle Button
-	<button id="toggle1" title="toggle title123" checked data-dojo-type="dijit/form/ToggleButton" data-dojo-props='
-			onChange:function(val){
-				console.log("toggled button checked="+val);
-				this.set("label", val ? "toggle me off1234" : "toggle me on1234");
-			}, iconClass:"dijitCheckBoxIcon"'>
+	<button id="toggle1" title="toggle title123" checked data-dojo-type="dijit/form/ToggleButton" data-dojo-props='iconClass:"dijitCheckBoxIcon"'>
 			Toggle me off123
-		</button>
+	</button>
 	<br>
+	DropDownMenu
+	<div data-dojo-type="dijit/DropDownMenu" id="DropDownMenu1" title="DropDownMenu123">
+    <div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCut'">Cut123</div>
+    <div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCopy'">Copy123</div>
+    <div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconPaste'">Paste123</div>
+    <div data-dojo-type="dijit/MenuSeparator"></div>
+    <div data-dojo-type="dijit/PopupMenuItem">
+        <span>Action123</span>
+        <div data-dojo-type="dijit/DropDownMenu" id="submenu2">
+            <div data-dojo-type="dijit/MenuItem" >Nested123</div>
+            <div data-dojo-type="dijit/MenuItem" >Nested123</div>
+        </div>
+    </div>
+</div>
+<br>
+SimpleTextArea<br>
+	<textarea id="simpleTextArea1" data-dojo-type="dijit/form/SimpleTextarea" data-dojo-props='name:"ta1", rows:"5", cols:"50",
+			selectOnClick:true'>textarea text baw123.
+	</textarea>
+	<br>
+	Calendar
+	<br>
+	<div id="Calendar1" data-dojo-type="dijit/Calendar" value="2009-08-07" data-dojo-props="isDisabledDate:dojo.date.locale.isWeekend"></div>
+	<br>
+	CalendarLite
+	<br>
+	<div data-dojo-type="dijit/CalendarLite"></div>
+	
+	<div data-dojo-type="dijit/ConfirmDialog" id="myDialog1" title="Name and Address123" data-dojo-props="content:'simple string contentd123'">
+	</div>
+ simple ConfirmDialog
+<button data-dojo-type="dijit/form/Button" type="button" onClick="dijit.byId('myDialog1').show();">
+    Show ConfirmDialog123!
+</button>
+<br>
+<div data-dojo-type="dijit/ConfirmDialog" id="myDialog2" title="Name and Address123" >
+<table>
+        <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" value="test123" title="name123"></td>
+        </tr>
+        <tr>
+            <td><label for="address">Address:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" value="test123" title="address123"></td>
+        </tr>
+    </table>
+	</div>
+ ConfirmDialog
+<button data-dojo-type="dijit/form/Button" type="button" onClick="dijit.byId('myDialog2').show();">
+    Show ConfirmDialog123!
+</button>
+<br>
+Dialog
+<div data-dojo-type="dijit/Dialog" data-dojo-id="myDialog3" title="Name and Address123">
+    <table class="dijitDialogPaneContentArea">
+        <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" value="test123"></td>
+        </tr>
+        <tr>
+            <td><label for="address">Address:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" value="test123"></td>
+        </tr>
+    </table>
 
+    <div class="dijitDialogPaneActionBar">
+        <button data-dojo-type="dijit/form/Button" type="submit" id="ok">OK123</button>
+        <button data-dojo-type="dijit/form/Button" type="button" data-dojo-props="onClick:function(){myDialog3.hide();}"
+                id="cancel">Cancel123</button>
+    </div>
+</div>
+
+<button data-dojo-type="dijit/form/Button" type="button" onClick="myDialog3.show();">
+    Show me123!
+</button>
+<br>
+<fieldset id="fs1" data-dojo-id="fs1" data-dojo-type="dijit/Fieldset" title="title123">
+		<legend>Declarative Fieldset123</legend>
+		<p>Some content123</p>
+</fieldset>	
+<br>
+Inline TextBox
+<div data-dojo-type="dijit/InlineEditBox" data-dojo-props="editor:'dijit/Editor', renderAsHtml:true, autoSave:false"></div>	
+<br>
+<span data-dojo-id="productStore" data-dojo-type="dojo/data/ItemFileReadStore" >
+			<script type="dojo/method">
+				this._jsonData =
+					{ identifier: 'name',
+					  label: 'name',
+					  items: [
+						{ name: "refrigerator123" },
+						{ name: "freezer123" },
+						{ name: "stove123" },
+						{ name: "heater123" }
+					]};
+			</script>
+		</span>
+		<h2>Form Letter with blanks</h2>
+		<div class="letter">
+			<h3 id="editable1" data-dojo-type="dijit/InlineEditBox" data-dojo-props='value:"markup value123", autoSave:true, title:"company123 name"'></h3>
+			<p>
+				Dear <span id="MrSmith" data-dojo-type="dijit/InlineEditBox" data-dojo-props='width:"200px", title:"recipient name123"'></span>,
+			</p>
+			<p class="letter">
+				Thank you for your recent order123.
+				Please remit
+				<span id="dollar_as" data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/form/CurrencyTextBox", editorParams:{currency: "USD"}, width:"100px", title:"dollar amount123"'></span>&nbsp;for
+				your purchase of
+				<span data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/form/NumberSpinner", editorParams:{constraints: {places:0} }, width:"70px", title:"quantity123"'></span>&nbsp;deluxe
+				<span data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/form/ComboBox", title:"item name123",
+					editorParams:{searchAttr: "name", store: productStore, autocomplete: false, hasDownArrow: false},
+					 width:"200px"'></span>&nbsp;on
+				<span data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/form/DateTextBox", width:"200px", title:"purchase123 date as mm/dd/yy"'></span>&nbsp;in
+				<span data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/form/FilteringSelect",
+					editorParams:{searchAttr: "name", keyAttr: "abbreviation", store: productStore, autocomplete: true, hasDownArrow: true},
+					 width:"200px", title:"state of purchase123"'></span>&nbsp;
+				<nobr>(<span data-dojo-type="dijit/InlineEditBox"
+					data-dojo-props='editor:"dijit/form/Select", width:"200px", title:"country123", editorParams:{ store: productStore }'
+				></span>)</nobr>.
+			</p>
+			<p id="textarea" data-dojo-type="dijit/InlineEditBox" data-dojo-props='autoSave:true, editor:"dijit/form/Textarea", title:"additional details123"'></p>
+			<p>
+				Sincerely,
+			</p>
+			<span data-dojo-type="dijit/InlineEditBox" data-dojo-props='style:"margin-left: 2em; font-family: cursive;", width:"400px", title:"sender name123"                                                                           '></span>
+		</div>	
+	
+	<br>
+	ProgressBar
+	<div data-dojo-type="dijit/ProgressBar" style="width:300px" id="myProgressBar1" 
+	data-dojo-props="maximum:100,value:80,title:'progtitle123'"></div>
+	<br>
+	TitlePane
+	<div id="tp1" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane Too123'">
+    Click arrow to close me123.
+	</div>
+	
+<br>
+<button onclick="changeAttr()">changeAttr</button>
 </body>
 </html>

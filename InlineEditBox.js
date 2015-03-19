@@ -96,7 +96,8 @@ define([
 				style: editStyle,
 				dir: this.dir,
 				lang: this.lang,
-				textDir: this.textDir
+				textDir: this.textDir,
+				numericShaperType: this.numericShaperType
 			});
 			// set the value in onLoadDeferred instead so the widget has time to finish initializing
 			//editorParams[("displayedValue" in Cls.prototype || "_setDisplayedValueAttr" in Cls.prototype) ? "displayedValue" : "value"] = this.value;
@@ -483,7 +484,8 @@ define([
 					sourceStyle: domStyle.getComputedStyle(this.displayNode),
 					save: lang.hitch(this, "save"),
 					cancel: lang.hitch(this, "cancel"),
-					textDir: this.textDir
+					textDir: this.textDir,
+					numericShaperType: this.numericShaperType
 				}, placeholder);
 				if(!this.wrapperWidget._started){
 					this.wrapperWidget.startup();

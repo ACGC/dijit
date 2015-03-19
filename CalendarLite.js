@@ -151,6 +151,8 @@ define([
 			while(node.firstChild){
 				node.removeChild(node.firstChild);
 			}
+			if(has("dojo-bidi"))
+				text = this.applyNumericShaping(text);
 			node.appendChild(node.ownerDocument.createTextNode(text));
 		},
 		_populateGrid: function(){

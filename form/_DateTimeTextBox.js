@@ -255,6 +255,7 @@ define([
 				id: this.id + "_popup",
 				dir: textBox.dir,
 				lang: textBox.lang,
+				numericShaperType: this.numericShaperType,
 				value: value,
 				textDir: textBox.textDir,
 				currentFocus: !this._isInvalidDate(value) ? value : this.dropDownDefaultValue,

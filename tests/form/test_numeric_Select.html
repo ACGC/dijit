@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+<title>Select Numeric Shaping Test</title>
+<link id="themeStyles" rel="stylesheet"
+	href="../../../dijit/themes/claro/claro.css" />
+
+<script type="text/javascript" src="../../../dojo/dojo.js"
+	data-dojo-config="parseOnLoad: true, isDebug: true, has:{'dojo-bidi': true}"></script>
+
+<script type="text/javascript">
+	function addOpts() {
+
+		require(["dijit/form/Select", "dijit/registry", "dojo/domReady!"],
+				function(Select, registry) {
+			   
+			 var range = new Select({
+		          id:"_Range",
+		          label:"Range",
+		          name: "range",
+		          value: "5000",
+		          options: [
+		              { label : "اب123" , value :"اب123" },
+		              { label : "abc123", value :"abc123" },
+		              { label : "new678", value :"new678" },
+		              { label : "40", value :"40000" },
+		             
+		          ]
+		    });
+			var msObj = registry.byId("s1");
+			 range.placeAt(msObj, "replace");
+
+			 document.getElementById("b1").disabled = true; 
+		});
+
+	}
+</script>
+
+</head>
+<body class="claro" numericShaperType="National">
+
+	<h2>Select Numeric Shaping Dynamic Test</h2>
+	<h3>Click on test button to see new data loaded in the Select widget
+		widget</h3>
+	<div data-dojo-type="dijit/form/Form" enctype="multipart/form-data"
+		action="" method="POST">
+		<div data-dojo-type="dojox/layout/TableContainer"
+			data-dojo-props="cols:1">
+
+			<select id="s1" data-dojo-id="s1" name="select1" data-dojo-type="dijit/form/Select">
+				<option value="op1">English123</option>
+				<option value="op2" selected="selected">عربي 1234</option>
+				<option value="op3">12345.678</option>
+				
+			</select>
+		</div>
+		<br>
+
+		<button id="b1" onclick="addOpts(); return false;">Add Options</button>
+		<br>
+		
+</body>
+</html>
