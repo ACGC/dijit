@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+<title>Dropdown Menu Numeric Shaping Test</title>
+<link id="themeStyles" rel="stylesheet"
+	href="../../../dijit/themes/claro/claro.css" />
+
+<script type="text/javascript" src="../../../dojo/dojo.js"
+	data-dojo-config="parseOnLoad: true, isDebug: true, has:{'dojo-bidi': true}"></script>
+
+<script type="text/javascript">
+	
+</script>
+
+</head>
+<body id="bd" class="claro" numericShaperType="National">
+
+
+	<div data-dojo-type="dijit/form/Form" enctype="multipart/form-data"
+		action="" method="POST">
+		<div data-dojo-type="dojox/layout/TableContainer"
+			data-dojo-props="cols:1">
+
+			<h2>Dropdown Menu Numeric Shaping Test</h2>
+			<h3>Click on test button to see new data loaded in the Select
+				widget widget</h3>
+
+			<div data-dojo-type="dijit/MenuBar" id="navMenu">
+				<div data-dojo-type="dijit/PopupMenuBarItem">
+					<span>قائمة1234</span>
+					<div data-dojo-type="dijit/DropDownMenu" id="fileMenu">
+						<div data-dojo-type="dijit/MenuItem"
+							data-dojo-props="onClick:function(){alert('file 1');}">ملف12</div>
+						<div data-dojo-type="dijit/MenuItem"
+							data-dojo-props="onClick:function(){alert('1234.5678');}">ملف12</div>
+							<div data-dojo-type="dijit/MenuItem"
+							data-dojo-props="onClick:function(){alert('ملف1');}">ABC2134</div>
+							<div data-dojo-type="dijit/MenuItem"
+							data-dojo-props="onClick:function(){alert('file 4');}">12345.678</div>
+					</div>
+				</div>
+</div>
+
+				<button id="b1" onclick="addOpts(); return false;" disabled=true>Add
+					Option</button>
+				<br>
+</body>
+</html>
