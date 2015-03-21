@@ -458,7 +458,8 @@ define([
 							dir: tree.dir,
 							lang: tree.lang,
 							textDir: tree.textDir,
-							indent: this.indent + 1
+							indent: this.indent + 1,
+							numericShaperType: this.numericShaperType
 						});
 						if(existingNodes){
 							existingNodes.push(node);
@@ -897,7 +898,8 @@ define([
 						label: this.label || this.getLabel(item),
 						labelType: this.model.labelType || "text",
 						textDir: this.textDir,
-						indent: this.showRoot ? 0 : -1
+						indent: this.showRoot ? 0 : -1,
+						numericShaperType: this.numericShaperType
 					}));
 
 					if(!this.showRoot){

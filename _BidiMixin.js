@@ -193,7 +193,7 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 			this.inherited(arguments);
 			
 			aspect.before(this,"set", function(name, value){
-				if(["label", "title", "placeHolder", "content", "value"].indexOf(name) > -1 && typeof value === 'string'){
+				if(["label", "title", "placeHolder", "content", "value", "errorMessage"].indexOf(name) > -1 && typeof value === 'string'){
 					value = this.applyNumericShaping(value);
 				}
 				return arguments;
