@@ -181,7 +181,8 @@ define([
 				iconClass: page.iconClass,
 				closeButton: page.closable,
 				title: page.tooltip,
-				page: page
+				page: page,
+				numericShaperType: this.numericShaperType
 			});
 
 			this.addChild(button, insertIndex);

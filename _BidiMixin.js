@@ -193,7 +193,9 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 			this.inherited(arguments);
 			
 			aspect.before(this,"set", function(name, value){
-				if(["label", "title", "placeHolder", "content", "value", "errorMessage"].indexOf(name) > -1 && typeof value === 'string'){
+				if(["label", "title", "placeHolder", "content", "value",
+				    "errorMessage", "loadingMessage", "invalidMessage", "message",
+				    "missingMessage", "promptMessage", "rangeMessage"].indexOf(name) > -1 && typeof value === 'string'){
 					value = this.applyNumericShaping(value);
 				}
 				return arguments;
@@ -209,6 +211,11 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 			aspect.after(this,"report", function(newDisplay){
 				return this.applyNumericShaping(newDisplay);
 			});
+//			aspect.after(this,"get", function(name){
+//				if(["displayedValue", "value"].indexOf(name) > -1 && typeof this[name] === 'string'){
+//					return this.applyNumericShaping(this[name],"Nominal");
+//				}
+//			},true);
 			
 			if(this.numericShaperType != "Nominal"){
 				//Ruler

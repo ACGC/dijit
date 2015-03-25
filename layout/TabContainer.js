@@ -53,6 +53,7 @@ define([
 				dir: this.dir,
 				lang: this.lang,
 				textDir: this.textDir,
+				numericShaperType: this.numericShaperType,
 				tabPosition: this.tabPosition,
 				doLayout: this.doLayout,
 				containerId: this.id,

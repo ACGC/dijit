@@ -12,18 +12,18 @@
 	
 <script type="text/javascript" >
 
-	var widgetAttr = [{"widId":"textBox1","widAttr":["title"]},
-	                  {"widId":"currencyBox1","widAttr":["title"]},
-	                  {"widId":"dateBox1","widAttr":["title"]},
-	                  {"widId":"numSpinBox1","widAttr":["title"]},
-	                  {"widId":"numBox1","widAttr":["title"]},
-	                  {"widId":"timeBox1","widAttr":["title"]},
-	                  {"widId":"validBox1","widAttr":["title"]},
+	var widgetAttr = [{"widId":"textBox1","widAttr":["title","placeHolder"]},
+	                  {"widId":"currencyBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
+	                  {"widId":"dateBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
+	                  {"widId":"numSpinBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
+	                  {"widId":"numBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
+	                  {"widId":"timeBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
+	                  {"widId":"validBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
 	                  {"widId":"areaBox1","widAttr":["title"]},
-	                  {"widId":"selectBox1","widAttr":["title"]},
-	                  {"widId":"comboBox1","widAttr":["title"]},
+	                  {"widId":"selectBox1","widAttr":["title", "emptyLabel"]},
+	                  {"widId":"comboBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
 	                  {"widId":"multiBox1","widAttr":["title"]},
-	                  {"widId":"filterBox1","widAttr":["title"]},
+	                  {"widId":"filterBox1","widAttr":["title","invalidMessage","missingMessage","promptMessage","placeHolder"]},
 	                  {"widId":"checkBox1","widAttr":["title", "label"]},
 	                  {"widId":"radioBox1","widAttr":["title", "label"]},
 	                  {"widId":"radioBox2","widAttr":["title", "label"]},
@@ -36,29 +36,32 @@
 	                  {"widId":"DropDownButton1","widAttr":["title", "label"]},
 	                  {"widId":"toggle1","widAttr":["title", "label"]},
 	                  {"widId":"DropDownMenu1","widAttr":["title", "label"]},
-	                  {"widId":"myDialog1","widAttr":["title", "content"]},
-	                  {"widId":"fs1","widAttr":["title", "content"]},
+	                  {"widId":"myDialog1","widAttr":["title","content","buttonCancel","buttonOk","errorMessage","loadingMessage"]},
+	                  {"widId":"myDialog3","widAttr":["title","content","buttonCancel","buttonOk","errorMessage","loadingMessage"]},
+	                  {"widId":"fs1","widAttr":["title", "content","errorMessage","loadingMessage"]},
+	                  {"widId":"inlineEditBox1","widAttr":["title", "buttonCancel","buttonSave"]},
 	                  {"widId":"editable1","widAttr":["title", "value"]},
 	                  {"widId":"myProgressBar1","widAttr":["title"]},
-	                  {"widId":"tp1","widAttr":["title", "content"]},
-	                  {"widId":"confirmTooltipDialog1","widAttr":["title", "content"]},
+	                  {"widId":"tp1","widAttr":["title", "content","errorMessage","loadingMessage"]},
+	                  {"widId":"confirmTooltipDialog1","widAttr":["title","content","buttonCancel","buttonOk","errorMessage","loadingMessage"]},
 	                  {"widId":"toolbar1","widAttr":["title"]},
 	                  {"widId":"tooltip1","widAttr":["label"]},
-	                  {"widId":"ToolTipDialog1","widAttr":["title","content"]},
+	                  {"widId":"ToolTipDialog1","widAttr":["title","content","errorMessage","loadingMessage"]},
 	                  {"widId":"HorizontalRule1","widAttr":["title"]},
 	                  {"widId":"VerticalRule1","widAttr":["title"]},
 	                  {"widId":"menuItem1","widAttr":["title","label"]},
 	                  {"widId":"PopupMenuItem1","widAttr":["title","label"]},
 	                  {"widId":"PopupMenuBarItem1","widAttr":["title","label"]},
 	                  {"widId":"MenuBarItem1","widAttr":["title","label"]},
-	                  //{"widId":"VerticalRule1","widAttr":["title"]},
-	                  
+	                  {"widId":"contentPane1","widAttr":["title","content","errorMessage","loadingMessage"]},
+	                  {"widId":"linkPane1","widAttr":["title","content","errorMessage","loadingMessage"]},
+	                  {"widId":"accordTab1","widAttr":["title","content","errorMessage","loadingMessage"]},
 					];
 	
 	function changeAttr(){
 		widgetAttr.forEach(function(obj) {
 			var wid = dijit.byId(obj.widId);
-			
+			console.log(obj.widId)
 			obj.widAttr.forEach(function(entry){
 				//console.log(entry)
 				wid.set(entry, "new_Dynamic_"+entry+"9595");
@@ -79,57 +82,71 @@
 		action="" method="POST">
 		<div data-dojo-type="dojox/layout/TableContainer"
 			data-dojo-props="cols:1">
-			<div id="textBox1" data-dojo-type="dijit/form/TextBox" title="TextBox123:"
-				name="text_box" placeHolder="Some text123"></div>
-			<div id="currencyBox1" data-dojo-type="dijit/form/CurrencyTextBox"
-				data-dojo-props="currency:'USD', invalidMessage:'Invalid value'"
-				title="CurrencyTextBox123:" name="currency_text_box" value="666.99"></div>
-			<div id="dateBox1" data-dojo-type="dijit/form/DateTextBox" title="DateTextBox123:"
-				name="date_text_box" value="2013-06-22"></div>
+			<div id="textBox1" data-dojo-type="dijit/form/TextBox"
+				data-dojo-props="title:'textbox123', placeHolder:'placeHolder123'"></div>
+				
+			<div id="currencyBox1" required data-dojo-type="dijit/form/CurrencyTextBox"
+				data-dojo-props="currency:'USD', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', rangeMessage:'rangeMessage123', placeHolder:'placeHolder123', value:'666.9'"></div>
+				
+			<div id="dateBox1" data-dojo-type="dijit/form/DateTextBox" 
+			data-dojo-props="title:'DateTextBox123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', rangeMessage:'rangeMessage123', placeHolder:'placeHolder123', value:'2013-06-22'"></div>
+				
 			<div id="numSpinBox1" data-dojo-type="dijit/form/NumberSpinner"
-				title="NumberSpinner123:" name="number_spinner" value="123"></div>
+				data-dojo-props="title:'NumberSpinner123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', rangeMessage:'rangeMessage123', placeHolder:'placeHolder123', value:'123'"	></div>
+				
 			<div id="numBox1" data-dojo-type="dijit/form/NumberTextBox"
-				title="NumberTextBox123:" name="number_text_box" value="123"></div>
-			<div id="timeBox1" data-dojo-type="dijit/form/TimeTextBox" title="TimeTextBox123:"
-				name="time_text_box" value="T11:12:13"></div>
+				data-dojo-props="title:'NumberTextBox123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', rangeMessage:'rangeMessage123', placeHolder:'placeHolder123', value:'123'"></div>
+				
+			<div id="timeBox1" data-dojo-type="dijit/form/TimeTextBox"
+				data-dojo-props="title:'TimeTextBox123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', rangeMessage:'rangeMessage123', placeHolder:'placeHolder123', value:'T11:12:13'"></div>
+				
 			<div id="validBox1" data-dojo-type="dijit/form/ValidationTextBox"
-				data-dojo-props="regExp:'^[a-zA-Z]+$', invalidMessage:'Invalid value'"
-				title="ValidationTextBox123:" name="validation_text_box"
-				value="CharactersOnly123"></div>
-			<div id="areaBox1" data-dojo-type="dijit/form/Textarea" title="Textarea123:"
-				name="textarea" value="Some text in Textarea123"></div>
+				data-dojo-props="regExp:'^[a-zA-Z]+$', title:'ValidationTextBox123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', placeHolder:'placeHolder123', value:'CharactersOnly123'"></div>
+				
+			<div id="areaBox1" data-dojo-type="dijit/form/Textarea"
+				data-dojo-props="title:'Textarea123:',value:'Some text in Textarea123', placeHolder:'placeHolder123'"></div>
+				
 			<select id="selectBox1" data-dojo-type="dijit/form/Select" title="Select123:"
-				name="select">
+				data-dojo-props="title:'Select123:', emptyLabel:'emptyLabel123'">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
 			</select>
-			 <select id="comboBox1" data-dojo-type="dijit/form/ComboBox" title="ComboBox123:"
-				name="combo_box">
+			
+			 <select id="comboBox1" data-dojo-type="dijit/form/ComboBox" 
+				data-dojo-props="title:'ComboBox123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', placeHolder:'placeHolder123'">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
 			</select>
+			
 			<select id="multiBox1" data-dojo-type="dijit/form/MultiSelect"
 				title="MultiSelect123:" name="multi_select">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
 			</select>
+			
 			<select id="filterBox1" data-dojo-type="dijit/form/FilteringSelect"
-				title="FilteringSelect123:" name="filtering_select">
+				data-dojo-props="title:'FilteringSelect123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
+				promptMessage:'promptMessage123', placeHolder:'placeHolder123'">
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
 			</select>
-			<div id="checkBox1" data-dojo-type="dijit/form/CheckBox" label="CheckBox1234:"
-				name="check_box"></div>
-			<div id="radioBox1" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
-				name="radio_button" value="xxx"></div>
-			<div id="radioBox2" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
-				name="radio_button" value="xxx"></div>
-			<div id="radioBox3" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:"
-				name="radio_button" value="xxx"></div>
+			
+			<div id="checkBox1" data-dojo-type="dijit/form/CheckBox" label="CheckBox1234:"></div>
+			<div id="radioBox1" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:" value="r1"></div>
+			<div id="radioBox2" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:" value="r2"></div>
+			<div id="radioBox3" data-dojo-type="dijit/form/RadioButton" title="RadioButton123:" value="r3"></div>
+			
 			<div id="horizBox1" data-dojo-type="dijit/form/HorizontalSlider" title="HorizontalSlider123:">
 				<ol data-dojo-type="dijit/form/HorizontalRuleLabels"
 					container="topDecoration" style="height: 1.5em; font-size: 0.7em;">
@@ -149,6 +166,7 @@
 					<li></li>
 				</ol>
 			</div>
+			
 			<div id="vertBox1" data-dojo-type="dijit/form/VerticalSlider" title="VerticalSlider123:" style="height: 300px">
 				<ol data-dojo-type="dijit/form/VerticalRuleLabels"
 					container="leftDecoration"
@@ -170,13 +188,15 @@
 				</ol>
 			</div>
 		</div>
-		<button id="btnSubmit" data-dojo-type="dijit/form/Button"
-			type="button" role="button" label="submit1235">Submit123</button>
+		
+		<button id="btnSubmit" data-dojo-type="dijit/form/Button" type="button" role="button">Submit123</button>
 	</div>
+	
 	<h2>No plugins Editor</h2>
 	<div data-dojo-type="dijit/Editor"
 		data-dojo-props="plugins:[], height:'100', 'aria-label':'applied with aria'"
 		id="editor0">Editor123</div>
+		
 	<br> ComboButton
 	<button id="ComboButton1" title="creative title123"
 		data-dojo-type="dijit/form/ComboButton"
@@ -191,6 +211,7 @@
 			data-dojo-props='onClick:function(){ console.log("not actually saving anything, just a test!"); }'>Create
 				from template123</span> </span>
 	</button>
+	
 	<br> DropDown Button
 	<button id="DropDownButton1" data-dojo-type="dijit/form/DropDownButton"
 		title="SubmitDropDown title123" name="DropDown" value="DropDown 123"
@@ -221,9 +242,7 @@
 </div>
 <br>
 SimpleTextArea<br>
-	<textarea id="simpleTextArea1" data-dojo-type="dijit/form/SimpleTextarea" data-dojo-props='name:"ta1", rows:"5", cols:"50",
-			selectOnClick:true'>textarea text baw123.
-	</textarea>
+	<textarea id="simpleTextArea1" data-dojo-type="dijit/form/SimpleTextarea" data-dojo-props='rows:"5", cols:"50", placeHolder:"placeHolder123"'>textarea text baw123.	</textarea>
 	<br>
 	Calendar
 	<br>
@@ -233,12 +252,12 @@ SimpleTextArea<br>
 	<br>
 	<div data-dojo-type="dijit/CalendarLite"></div>
 	
-	<div data-dojo-type="dijit/ConfirmDialog" id="myDialog1" title="Name and Address123" data-dojo-props="content:'simple string contentd123'">
-	</div>
+	<div data-dojo-type="dijit/ConfirmDialog" id="myDialog1" data-dojo-props="title:'title123', errorMessage:'errorMessage123', content:'simple text content123'">	</div>
+ 
  simple ConfirmDialog
-<button data-dojo-type="dijit/form/Button" type="button" onClick="dijit.byId('myDialog1').show();">
+ <button data-dojo-type="dijit/form/Button" type="button" onClick="dijit.byId('myDialog1').show();">
     Show ConfirmDialog123!
-</button>
+ </button>
 <br>
 <div data-dojo-type="dijit/ConfirmDialog" id="myDialog2" title="Name and Address123" >
 <table>
@@ -258,7 +277,7 @@ SimpleTextArea<br>
 </button>
 <br>
 Dialog
-<div data-dojo-type="dijit/Dialog" data-dojo-id="myDialog3" title="Name and Address123">
+<div id="myDialog3" data-dojo-type="dijit/Dialog" data-dojo-id="myDialog3" title="Name and Address123">
     <table class="dijitDialogPaneContentArea">
         <tr>
             <td><label for="name">Name:</label></td>
@@ -281,13 +300,11 @@ Dialog
     Show me123!
 </button>
 <br>
-<fieldset id="fs1" data-dojo-id="fs1" data-dojo-type="dijit/Fieldset" title="title123">
-		<legend>Declarative Fieldset123</legend>
-		<p>Some content123</p>
-</fieldset>	
+<fieldset id="fs1" data-dojo-id="fs1" data-dojo-type="dijit/Fieldset" data-dojo-props="title:'title123',content:'Some content123'"></fieldset>	
+
 <br>
 Inline TextBox
-<div data-dojo-type="dijit/InlineEditBox" data-dojo-props="editor:'dijit/Editor', renderAsHtml:true, autoSave:false"></div>	
+<div id="inlineEditBox1" data-dojo-type="dijit/InlineEditBox" data-dojo-props="buttonSave:'save123',buttonCancel:'cancel123',editor:'dijit/Editor', renderAsHtml:true, autoSave:false"></div>	
 <br>
 <span data-dojo-id="productStore" data-dojo-type="dojo/data/ItemFileReadStore" >
 			<script type="dojo/method">
@@ -338,14 +355,12 @@ Inline TextBox
 	data-dojo-props="maximum:100,value:80,title:'progtitle123'"></div>
 	<br>
 	TitlePane
-	<div id="tp1" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane Too123'">
-    Click arrow to close me123.
-	</div>
+	<div id="tp1" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane Too123', content:' Click arrow to close me123.'"></div>
 <br>
 ConfirmTooltipDialog
 <div data-dojo-type="dijit/form/DropDownButton">
     <span>Register123</span>
-    <div id="confirmTooltipDialog1" data-dojo-type="dijit/ConfirmTooltipDialog" title="confirm123" content="content123"></div>
+    <div id="confirmTooltipDialog1" data-dojo-type="dijit/ConfirmTooltipDialog" data-dojo-props="buttonOk:'Ok123',buttonCancel:'cancel123', title:'confirm123', content:'content123'" ></div>
 </div>
 <br>
 Toolbar
@@ -478,8 +493,23 @@ Menu
 </button>
 <br>
 <br>
+<div id="contentPane1" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'contentpane123', content:'content pane one simple content123', errorMessage:'errorMessage123', loadingMessage:'loadingMessage123'"></div>
 <br>
-
+LinkPane
+<div data-dojo-type="dijit/layout/TabContainer" style="height:400px; width:500px">
+    <a id="linkPane1" data-dojo-type="dijit/layout/LinkPane" data-dojo-props="content:'content123'">Tab 1</a>
+    <a href="page2.html" data-dojo-type="dijit/layout/LinkPane" >Tab 2</a>
+    <a href="page3.html" data-dojo-type="dijit/layout/LinkPane">Tab 3</a>
+</div>
+<br>
+<div style="width: 300px; height: 300px">
+    <div data-dojo-type="dijit/layout/AccordionContainer" style="height: 300px;">
+        <div id="accordTab1" data-dojo-type="dijit/layout/ContentPane"  data-dojo-props="title:'Heeh, this is a content pane123', content:'Hi!13'"> </div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'This is as well123', content:'Hi how are you?13 ',selected:true"></div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'This itoo123', content:'Hi how are you? .....Great, thx13 '"> </div>
+    </div>
+</div>
+<br>
 <br>
 <button onclick="changeAttr()">changeAttr</button>
 </body>

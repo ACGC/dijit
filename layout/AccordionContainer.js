@@ -187,7 +187,8 @@ define([
 				textDir: child.textDir || this.textDir,
 				iconClass: child.iconClass,
 				id: child.id + "_button",
-				parent: this.parent
+				parent: this.parent,
+				numericShaperType: this.numericShaperType
 			})).placeAt(this.domNode);
 
 			// and then the actual content widget (changing it from prior-sibling to last-child),
@@ -369,7 +370,8 @@ define([
 				dir: child.dir,
 				lang: child.lang,
 				textDir: child.textDir || this.textDir,
-				parent: this
+				parent: this,
+				numericShaperType: this.numericShaperType
 			});
 
 			this.inherited(arguments);
