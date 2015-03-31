@@ -193,11 +193,18 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 			this.inherited(arguments);
 			
 			aspect.before(this,"set", function(name, value){
-				if(["label", "title", "placeHolder", "content", "value",
+				if(["label", "title", "placeHolder", "content", /*"value",*/
 				    "errorMessage", "loadingMessage", "invalidMessage", "message",
 				    "missingMessage", "promptMessage", "rangeMessage"].indexOf(name) > -1 && typeof value === 'string'){
 					value = this.applyNumericShaping(value);
 				}
+				
+				// if the content is document-fragment
+//				if(name == "content" && typeof value == 'object' && value.nodeType == 11){  // 11: document-fragment
+//					for(var i=0; i < value.childNodes.length; i++)
+//						if(value.childNodes[i].nodeName != "TABLE")
+//							value.childNodes[i].textContent = this.applyNumericShaping(value.childNodes[i].textContent);
+//				}
 				return arguments;
 			});
 			
@@ -283,11 +290,11 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 			text = new String(text);
 			shaperType = shaperType || this.numericShaperType;
 			var ob = new NumericShaper();
-			var shapedString = "";
+			var shapedString = new String("");
 			
-			if (this.numericShaperType === "National") {
+			if (shaperType === "National") {
 				ob.getShaper(ob.ARABIC); // National
-			} else if (this.numericShaperType === "Contextual") {
+			} else if (shaperType === "Contextual") {
 				ob.getContextualShaper(ob.ARABIC, ob.EUROPEAN); // Contextual Arabic
 			} else {
 				ob.getShaper(ob.EUROPEAN); // Nominal
@@ -296,6 +303,19 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 			if (text) {
 				shapedString = ob.shapeWith(shaperType, text).join("");
 			}
+			// If the original string contains any <h1>,<h2>...<h6> tags, we have to make sure it is not corrupted.
+			// what if there is a link/imgRef which contains dijits ?????
+//			var regX = new RegExp("h[\\u0661-\\u0666]>","gi");
+//			shapedString = shapedString.replace(regX, function(m) {
+//				switch (m.charCodeAt(1)){
+//					case 0x661: return "h1>"; 
+//					case 0x662: return "h2>";
+//					case 0x663: return "h3>";
+//					case 0x664: return "h4>";
+//					case 0x665: return "h5>";
+//					case 0x666: return "h6>";
+//				}
+//			}); 
 			
 			return shapedString;
 		}

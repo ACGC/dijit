@@ -83,11 +83,9 @@
 		<div data-dojo-type="dojox/layout/TableContainer"
 			data-dojo-props="cols:1">
 			<div id="textBox1" data-dojo-type="dijit/form/TextBox"
-				data-dojo-props="title:'textbox123', placeHolder:'placeHolder123'"></div>
-				
-			<div id="currencyBox1" required data-dojo-type="dijit/form/CurrencyTextBox"
-				data-dojo-props="currency:'USD', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
-				promptMessage:'promptMessage123', rangeMessage:'rangeMessage123', placeHolder:'placeHolder123', value:'666.9'"></div>
+				data-dojo-props="title:'textbox123', placeHolder:'placeHolder123', value:'&#x660;'"></div>
+
+			<div id="currencyBox1" required data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="title:'CurrencyTextBox123', currency:'USD', value:'55.8'"></div>
 				
 			<div id="dateBox1" data-dojo-type="dijit/form/DateTextBox" 
 			data-dojo-props="title:'DateTextBox123:', invalidMessage:'invalidMessage123', message:'message123', missingMessage:'missingMessage123',
@@ -140,6 +138,7 @@
 				<option value="Johnnie Walker">Johnnie Walker123</option>
 				<option value="Jack Daniels">Jack Daniels123</option>
 				<option value="Grant's Scotch">Grant's Scotch123</option>
+				<option value="Grant's Scotch">123 last One</option>
 			</select>
 			
 			<div id="checkBox1" data-dojo-type="dijit/form/CheckBox" label="CheckBox1234:"></div>
@@ -506,11 +505,16 @@ LinkPane
     <div data-dojo-type="dijit/layout/AccordionContainer" style="height: 300px;">
         <div id="accordTab1" data-dojo-type="dijit/layout/ContentPane"  data-dojo-props="title:'Heeh, this is a content pane123', content:'Hi!13'"> </div>
         <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'This is as well123', content:'Hi how are you?13 ',selected:true"></div>
-        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'This itoo123', content:'Hi how are you? .....Great, thx13 '"> </div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'This itoo123', content:'Hi how are you? .....Great, thx13'"> </div>
     </div>
 </div>
 <br>
+<div data-dojo-type="dijit/Editor" id="editor1" data-dojo-props="onChange:function(){console.log('editor1 onChange handler: ' + arguments[0])}">
+    <p>This instance is created from a div directly with default toolbar and plugins</p>
+</div>
 <br>
 <button onclick="changeAttr()">changeAttr</button>
+<br>
+
 </body>
 </html>
