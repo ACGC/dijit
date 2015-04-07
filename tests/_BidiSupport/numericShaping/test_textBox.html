@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html >
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>TextBox with _BidiSupport</title>
+
+		<style type="text/css">
+			@import "../../../../dijit/themes/tundra/tundra.css";
+			@import "../../../../dojo/resources/dojo.css";
+		</style>
+
+		<!-- required: dojo.js -->
+		<script type="text/javascript" src="../../../../dojo/dojo.js"
+			data-dojo-config="parseOnLoad: true, isDebug: true, has: { 'dojo-bidi': true }">
+		</script>
+
+		<script type="text/JavaScript">
+			dojo.require("dijit.form.TextBox");
+			dojo.require("dojo.parser");
+		</script>
+		
+		<script type="text/javascript">
+			require([
+				"doh/runner",
+				"dojo/dom",
+				"dojo/parser",
+				"dojo/query",
+				"dijit/registry",
+				
+				"dojo/_base/array",
+				
+				"dijit/layout/StackController",
+				"dijit/layout/ContentPane",
+				"dojo/domReady!"
+			], function(doh, dom, parser, query, registry, array){
+				
+				var testCases = [{"shape":"Nominal", "dir":"", "value":"abc 123", "expected":"abc 123"},
+								 {"shape":"Nominal", "dir":"", "value":"اول 123", "expected":"اول 123"},
+								 {"shape":"Nominal", "dir":"", "value":"اول 123 abc 123", "expected":"اول 123 abc 123"},
+								 {"shape":"Nominal", "dir":"", "value":"123", "expected":"123"},
+								 
+								 {"shape":"National", "dir":"", "value":"abc 123", "expected":"abc ١٢٣"},
+								 {"shape":"National", "dir":"", "value":"اول 123", "expected":"اول ١٢٣"},
+								 {"shape":"National", "dir":"", "value":"اول 123 abc 123", "expected":"اول ١٢٣ abc ١٢٣"},
+								 {"shape":"National", "dir":"", "value":"123", "expected":"١٢٣" },
+								 
+								 {"shape":"Contextual", "dir":"", "value":"abc 123", "expected": "abc 123"},
+								 {"shape":"Contextual", "dir":"", "value":"اول 123", "expected": "اول ١٢٣"},
+								 {"shape":"Contextual", "dir":"", "value":"اول 123 abc 123", "expected": "اول ١٢٣ abc 123"},
+								 {"shape":"Contextual", "dir":"", "value":"123", "expected": "123"},
+								 
+								 {"shape":"Contextual", "dir":"ltr", "value":"abc 123", "expected": "abc 123"},
+								 {"shape":"Contextual", "dir":"ltr", "value":"اول 123", "expected": "اول ١٢٣"},
+								 {"shape":"Contextual", "dir":"ltr", "value":"اول 123 abc 123", "expected": "اول ١٢٣ abc 123"},
+								 {"shape":"Contextual", "dir":"ltr", "value":"123", "expected": "123"},
+								 
+								 {"shape":"Contextual", "dir":"rtl", "value":"abc 123", "expected":"abc 123" },
+								 {"shape":"Contextual", "dir":"rtl", "value":"اول 123", "expected": "اول ١٢٣"},
+								 {"shape":"Contextual", "dir":"rtl", "value":"اول 123 abc 123", "expected": "اول ١٢٣ abc 123"},
+								 {"shape":"Contextual", "dir":"rtl", "value":"123", "expected":"١٢٣"}
+								 ];
+				
+				var testCasesUnicode = [{"shape":"Nominal", "dir":"", "value":"abc 123", "expected":"abc 123"},
+										 {"shape":"Nominal", "dir":"", "value":"اول U+06F1 U+06F2 U+06F3", "expected":"اول 123"},
+										 {"shape":"Nominal", "dir":"", "value":"اول U+06F1 U+06F2 U+06F3 abc 123", "expected":"اول 123 abc 123"},
+										 {"shape":"Nominal", "dir":"", "value":"U+06F1 U+06F2 U+06F3", "expected":"123"},
+										 
+										 {"shape":"National", "dir":"", "value":"abc 123", "expected":"abc ١٢٣"},
+										 {"shape":"National", "dir":"", "value":"اول U+06F1 U+06F2 U+06F3", "expected":"اول ١٢٣"},
+										 {"shape":"National", "dir":"", "value":"اول U+06F1 U+06F2 U+06F3 abc 123", "expected":"اول ١٢٣ abc ١٢٣"},
+										 {"shape":"National", "dir":"", "value":"U+06F1 U+06F2 U+06F3", "expected":"١٢٣" },
+										 
+										 {"shape":"Contextual", "dir":"", "value":"abc 123", "expected": "abc 123"},
+										 {"shape":"Contextual", "dir":"", "value":"اول 123", "expected": "اول ١٢٣"},
+										 {"shape":"Contextual", "dir":"", "value":"اول 123 abc 123", "expected": "اول ١٢٣ abc 123"},
+										 {"shape":"Contextual", "dir":"", "value":"U+06F1 U+06F2 U+06F3", "expected": "123"},
+										 
+										 {"shape":"Contextual", "dir":"ltr", "value":"abc 123", "expected": "abc 123"},
+										 {"shape":"Contextual", "dir":"ltr", "value":"اول U+06F1 U+06F2 U+06F3", "expected": "اول ١٢٣"},
+										 {"shape":"Contextual", "dir":"ltr", "value":"اول U+06F1 U+06F2 U+06F3 abc 123", "expected": "اول ١٢٣ abc 123"},
+										 {"shape":"Contextual", "dir":"ltr", "value":"U+06F1 U+06F2 U+06F3", "expected": "123"},
+										 
+										 {"shape":"Contextual", "dir":"rtl", "value":"abc 123", "expected":"abc 123" },
+										 {"shape":"Contextual", "dir":"rtl", "value":"اول U+06F1 U+06F2 U+06F3", "expected": "اول ١٢٣"},
+										 {"shape":"Contextual", "dir":"rtl", "value":"اول U+06F1 U+06F2 U+06F3 abc 123", "expected": "اول ١٢٣ abc 123"},
+										 {"shape":"Contextual", "dir":"rtl", "value":"U+06F1 U+06F2 U+06F3", "expected":"١٢٣"}
+										 ];
+				
+				function setTestingAttr(elementName, key)
+				{
+					textBox = registry.byId(elementName);
+					array.forEach(testCases, function(item){
+						if(item.shape == key){
+							textBox.set("numericShaperType", item.shape);
+							textBox.set("placeholder", item.value);
+							textBox.set("title", item.value);
+							textBox.set("value", item.value);
+							textBox.set("displayedValue", item.value);
+							textBox.set("dir", item.dir);
+							
+							doh.is(item.shape, textBox.numericShaperType);
+							doh.is(item.expected, textBox.placeholder);
+							doh.is(item.expected, textBox.title);
+							doh.is(item.expected, textBox.value);
+							doh.is(item.expected, textBox.displayedValue);
+							doh.is(item.dir, textBox.dir);
+						}
+					
+						
+					});
+				};
+					
+				function setTestingAttrUnicode(elementName, key)
+				{
+					textBox = registry.byId(elementName);
+					array.forEach(testCasesUnicode, function(itemUnicode){
+						if(itemUnicode.shape == key){
+							textBox.set("numericShaperType", itemUnicode.shape);
+							textBox.set("placeholder", itemUnicode.value);
+							textBox.set("title", itemUnicode.value);
+							textBox.set("value", itemUnicode.value);
+							textBox.set("displayedValue", item.value);
+							textBox.set("dir", itemUnicode.dir);
+							
+							doh.is(itemUnicode.shape, textBox.numericShaperType);
+							doh.is(itemUnicode.expected, textBox.placeholder);
+							doh.is(itemUnicode.expected, textBox.title);
+							doh.is(itemUnicode.expected, textBox.value);
+							doh.is(itemUnicode.expected, textBox.displayedValue);
+							doh.is(itemUnicode.dir, textBox.dir);
+						}
+					
+						
+					});
+				}
+
+	
+				doh.register("parse", function(){
+					return parser.parse();
+				});
+				
+				doh.register("tests._BidiSupport.numericShaping.test_textBox", [
+					{name:"Nominal", runTest:function(){setTestingAttr("testingTextBox", "Nominal");}},
+					{name:"National", runTest:function(){setTestingAttr("testingTextBox", "National");}},
+					{name:"Contextual", runTest:function(){setTestingAttr("testingTextBox", "Contextual");}},
+					
+					{name:"Nominal - Unicode", runTest:function(){setTestingAttrUnicode("testingTextBox", "Nominal");}},
+					{name:"National - Unicode", runTest:function(){setTestingAttrUnicode("testingTextBox", "National");}},
+					{name:"Contextual - Unicode", runTest:function(){setTestingAttrUnicode("testingTextBox", "Contextual");}}
+				]
+				);	
+				doh.run();
+			});
+		</script>
+
+	</head>
+	<body class="tundra">
+		<label for="testingTextBox" >
+			<b> I'm a TexBox with numbers</b>
+		</label><br>
+		<input data-dojo-type="dijit/form/TextBox" id="testingTextBox" 
+			data-dojo-props='name:"nominalTextBox", value:"", title:"", placeholder:"", textDir:"" '/>
+		<br>
+		<br>
+
+		<label for="programmatic1">dijit.form.Textarea programmatically created with custom styling for Nominal numbers:</label><br>
+		<input id="programmatic1"/>
+		<br />
+		<!-- 
+		<script type="text/javascript">
+			dojo.ready(function(){
+				programmaticTextBox1 = new dijit.form.TextBox({
+					id: "programmatic1",
+					name: "programmaticTextbox1",
+					textDir: "ltr",
+					numericShaperType:"Nominal",
+					value: "Nominal Numeric Shaper",
+					style: {border:"5px solid gray", padding:"11px", margin:"7px"}
+				}, "programmatic1");
+
+			});
+		</script>
+		 -->
+		
+	</body>
+	
+	
+</html>
