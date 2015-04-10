@@ -131,7 +131,7 @@ define([
 			//		Can override with your own routine in a subclass.
 			// tags:
 			//		protected
-			return this.validator(this.textbox.value, this.get('constraints'));
+			return this.validator(this.applyNumericShaping(this.textbox.value, "Nominal"), this.get('constraints'));
 		},
 
 		_isEmpty: function(value){
