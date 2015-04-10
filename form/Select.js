@@ -424,8 +424,16 @@ define([
 	if(has("dojo-bidi")){
 		Select = declare("dijit.form.Select", Select, {
 			_setDisplay: function(/*String*/ newDisplay){
+				newDisplay = this.applyNumericShaping(newDisplay);
 				this.inherited(arguments);
 				this.applyTextDir(this.containerNode);
+			},
+			
+			_loadChildren: function(){
+				this.inherited(arguments);
+				this.options.forEach(function(option){
+					option.label = this.applyNumericShaping(option.label);
+				},this);
 			}
 		});
 	}

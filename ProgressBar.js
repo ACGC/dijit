@@ -6,8 +6,9 @@ define([
 	"dojo/number", // number.format
 	"./_Widget",
 	"./_TemplatedMixin",
-	"dojo/text!./templates/ProgressBar.html"
-], function(require, declare, domClass, lang, number, _Widget, _TemplatedMixin, template){
+	"dojo/text!./templates/ProgressBar.html",
+	"dojo/has"
+], function(require, declare, domClass, lang, number, _Widget, _TemplatedMixin, template, has){
 
 	// module:
 	//		dijit/ProgressBar
@@ -156,8 +157,12 @@ define([
 			// tags:
 			//		extension
 
-			return this.label ? this.label :
+			var label = this.label ? this.label :
 				(this.indeterminate ? "&#160;" : number.format(percent, { type: "percent", places: this.places, locale: this.lang }));
+			if(has("dojo-bidi")){
+				label = this.applyNumericShaping(label);
+			}
+			return label;
 		},
 
 		onChange: function(){

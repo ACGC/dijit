@@ -38,16 +38,14 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 		
 		// numericShaperType: String
 		//		Bi-directional support,	the variable which is responsible for the shaping type of the digits.
-		//		Arabic and many other languages have classical shapes for digits “National Digits” that are different from the conventional Western Digits (European).
-		//		National digits have the same semantic meaning as the European digits. The difference is only a difference in glyphs.
 		//
 		//		Allowed values:
 		//
-		//		1. "Nominal"  - The digit shapes will be Arabic-European.
+		//		1. "Nominal"  - The digit shapes will be European.
 		//		2. "National" - The digit shapes will be Arabic-Indic.
 		//		3. "Contextual" - Digit shapes are determined from adjoining characters in the value.
 		//
-		//		By default it is "Nominal"/Arabic-European digits.
+		//		By default it is "Nominal"/European digits.
 		numericShaperType: "Nominal",
 		
 		getNumericShaperType: function(){
@@ -60,8 +58,18 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 		setNumericShaperType: function(type){
 			// summary:
 			//		Sets the numeric shaping type of the widget.
-			
-			this.numericShaperType = type;
+			this._setNumericShaperTypeAttr(type);
+		},
+		
+		_setNumericShaperTypeAttr: function(type){
+			// summary:
+			//		Sets the numeric shaping type of the widget.
+			// description:
+			//		Users shouldn't call this function; they should call set('numericShaperType', value)
+			if(["National", "Nominal", "Contextual"].indexOf(type) > -1)
+				this.numericShaperType = type;
+			else 
+				this.numericShaperType = "Nominal";
 			// should we call _checkNumericShapingAttr() here ?
 			// so that calling widget.setNumericShaperType() immediately affect the widget's digits.
 		},
@@ -124,9 +132,6 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 					element.dir = textDir;
 				}
 			}
-//			if(element.value){
-//				element.value = this.applyNumericShaping(element.value);	
-//			}
 		},
 
 		enforceTextDirWithUcc: function(option, text){
@@ -191,101 +196,57 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 
 		postMixInProperties: function(){
 			this.inherited(arguments);
-			
-			aspect.before(this,"set", function(name, value){
-				if(["label", "title", "placeHolder", "content", /*"value",*/
+
+			aspect.before(this, "set", function(name, value){
+				if(["label", "title", "placeHolder", "content", "value",
 				    "errorMessage", "loadingMessage", "invalidMessage", "message",
-				    "missingMessage", "promptMessage", "rangeMessage"].indexOf(name) > -1 && typeof value === 'string'){
+				    "missingMessage", "promptMessage", "rangeMessage", "emptyLabel"].indexOf(name) > -1 && typeof value === 'string'){
 					value = this.applyNumericShaping(value);
 				}
-				
-				// if the content is document-fragment
-//				if(name == "content" && typeof value == 'object' && value.nodeType == 11){  // 11: document-fragment
-//					for(var i=0; i < value.childNodes.length; i++)
-//						if(value.childNodes[i].nodeName != "TABLE")
-//							value.childNodes[i].textContent = this.applyNumericShaping(value.childNodes[i].textContent);
-//				}
 				return arguments;
 			});
 			
-			// select [displayed value]
-			aspect.before(this,"_setDisplay", function(newDisplay){
-				newDisplay = this.applyNumericShaping(newDisplay);
+			// FilteringSelect & ComboBox: to support user typing
+			aspect.after(this, "_processInput", function(){
+				this.set("displayedValue", this.get("displayedValue"));
+			});
+			
+			// FilteringSelect & ComboBox
+			aspect.before(this, "_setItemAttr", function(item, priorityChange, displayedValue){
+				if(item){
+					item.name = this.applyNumericShaping(item.name);
+				}
 				return arguments;
-			});
+			});	
 			
-			// ProgressBar [value must be a valid Number]
-			aspect.after(this,"report", function(newDisplay){
-				return this.applyNumericShaping(newDisplay);
-			});
-//			aspect.after(this,"get", function(name){
-//				if(["displayedValue", "value"].indexOf(name) > -1 && typeof this[name] === 'string'){
-//					return this.applyNumericShaping(this[name],"Nominal");
-//				}
-//			},true);
-			
-			if(this.numericShaperType != "Nominal"){
-				//Ruler
-				if(this.labels){
-					this.labels = this.getLabels();
-					for(var i = 0; i < this.labels.length; i++)
-						this.labels[i] =  this.applyNumericShaping(this.labels[i]);
-				}
-				//ComboButton
-				if (this.optionsTitle){
-					this.set("optionsTitle", this.applyNumericShaping(this.optionsTitle));
-				}
-			}
 		},
 		
 		postCreate : function(){
 			this.inherited(arguments);
-			if(this.numericShaperType != "Nominal")
-				this._checkNumericShapingAttr();
-		},
-		
-		_changeHandler: function(attr, oldVal, newVal){
 			
-			this.set(attr, this.applyNumericShaping(newVal));
-		},
-
-		_checkNumericShapingAttr: function (){
-			//Button, CheckBox, RadioButton, ComboButton
-//			if (this.label){
-//				this.set("label", this.applyNumericShaping(this.label));
-//			}
-			
-			// Textbox, CurrencyTextBox, DateTextBox, NumberSpinner
-			// NumberTextBox, TimeTextBox, ValidationTextBox
-			// SimpleTextArea
 			if (this.displayedValue){
 				this.set("displayedValue", this.applyNumericShaping(this.displayedValue));
 			}
-			// SimpleTextArea
-//			if (this.value && typeof this.value === 'string'){
-//				this.set("value", this.applyNumericShaping(this.value));
-//			}
 			
-			//Select  // no need for this code 
-			/*if(this.options){ 
-				var nOptions = this.options;
-				for(var i = 0; i < this.options.length; i++)
-					nOptions[i].label =  this.applyNumericShaping(this.options[i].label);
-				this.set('options', nOptions);
-			}*/
-
-			// MultiSelect, ComboBox, FilteringSelect
-			query("option", this.containerNode).forEach(function(option){
-				if(option.text)
-					option.text = this.applyNumericShaping(option.text);
-			}, this);
-			
-			this.watch("displayedValue", this._changeHandler);
+			this.watch("displayedValue", function(attr, oldVal, newVal){
+				this.set(attr, this.applyNumericShaping(newVal));
+			});
 		},
-		
+
 		applyNumericShaping : function( /*String?*/ text, /*optional*/ shaperType) {
 			// summary:
-			//		Apply the shaping behavior.
+			//		Apply the shaping algorithm on the input text according to the current selected shaperType.
+			// description:
+			//		Arabic and many other languages have classical shapes for digits (National Digits) that are different from the conventional Western Digits (European).
+			//		National digits have the same semantic meaning as the European digits. The difference is only a difference in glyphs.
+			//		This function will shape the input digits as the following:
+			//      1- Arabic-indic: if the shaperType was 'National'.
+			//      2- Arabic-indic: if the shaperType was 'Contextual' & the preceding character was Arabic.
+			//		3- Arabic-indic: if the shaperType was 'Contextual' & the textDir was 'rtl' & there is no preceding character.
+			//		4- European: if the shaperType was 'Nominal'.
+			//		5- European: if the shaperType was 'Contextual' & the preceding character was English.
+			//		6- European: if the shaperType was 'Contextual' & the textDir was 'ltr' & there is no preceding character.
+			//
 
 			text = new String(text);
 			shaperType = shaperType || this.numericShaperType;
@@ -293,30 +254,19 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 			var shapedString = new String("");
 			
 			if (shaperType === "National") {
-				ob.getShaper(ob.ARABIC); // National
+				ob.getShaper(ob.ARABIC);
+			} else if (shaperType === "Contextual" && this.textDir == "rtl") {
+				ob.getContextualShaper(ob.ARABIC, ob.ARABIC); // stand-alone digits will be 'National' 
 			} else if (shaperType === "Contextual") {
-				ob.getContextualShaper(ob.ARABIC, ob.EUROPEAN); // Contextual Arabic
+				ob.getContextualShaper(ob.ARABIC, ob.EUROPEAN); // stand-alone digits will be 'Nominal'
 			} else {
-				ob.getShaper(ob.EUROPEAN); // Nominal
+				ob.getShaper(ob.EUROPEAN);
 			}
 
 			if (text) {
 				shapedString = ob.shapeWith(shaperType, text).join("");
 			}
-			// If the original string contains any <h1>,<h2>...<h6> tags, we have to make sure it is not corrupted.
-			// what if there is a link/imgRef which contains dijits ?????
-//			var regX = new RegExp("h[\\u0661-\\u0666]>","gi");
-//			shapedString = shapedString.replace(regX, function(m) {
-//				switch (m.charCodeAt(1)){
-//					case 0x661: return "h1>"; 
-//					case 0x662: return "h2>";
-//					case 0x663: return "h3>";
-//					case 0x664: return "h4>";
-//					case 0x665: return "h5>";
-//					case 0x666: return "h6>";
-//				}
-//			}); 
-			
+
 			return shapedString;
 		}
 		

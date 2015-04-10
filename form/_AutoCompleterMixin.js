@@ -429,7 +429,8 @@ define([
 					onChange: lang.hitch(this, this._selectOption),
 					id: popupId,
 					dir: this.dir,
-					textDir: this.textDir
+					textDir: this.textDir,
+					numericShaperType: this.numericShaperType
 				});
 			}
 			this._lastInput = key; // Store exactly what was entered by the user.

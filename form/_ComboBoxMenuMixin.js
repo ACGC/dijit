@@ -186,7 +186,8 @@ define([
 
 	if(has("dojo-bidi")){
 		ComboBoxMenuMixin = declare("dijit.form._ComboBoxMenuMixin", ComboBoxMenuMixin, {
-			_createOption: function(){
+			_createOption: function(item, labelFunc){
+				item.name = this.applyNumericShaping(item.name);
 				var menuitem = this.inherited(arguments);
 
 				// update menuitem.dir if BidiSupport was required

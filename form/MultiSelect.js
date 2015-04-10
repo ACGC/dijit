@@ -140,6 +140,7 @@ define([
 			addSelected: function(/*dijit/form/MultiSelect*/ select){
 				select.getSelected().forEach(function(n){
 					n.text = this.enforceTextDirWithUcc(this.restoreOriginalText(n), n.text);
+					n.text = this.applyNumericShaping(n.text);
 				}, this);
 				this.inherited(arguments);
 			},
@@ -161,6 +162,14 @@ define([
 						option.text = this.enforceTextDirWithUcc(option, option.originalText || option.text);
 					}, this);
 				}
+			},
+			
+			postCreate: function(){
+				this.inherited(arguments);
+				query("option", this.containerNode).forEach(function(option){
+					if(option.text)
+						option.text = this.applyNumericShaping(option.text);
+				}, this);
 			}
 		});
 	}
