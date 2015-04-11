@@ -6,8 +6,9 @@ define([
 	"./TextBox",
 	"../Tooltip",
 	"dojo/text!./templates/ValidationTextBox.html",
+	"dojo/has",
 	"dojo/i18n!./nls/validate"
-], function(declare, kernel, lang, i18n, TextBox, Tooltip, template){
+], function(declare, kernel, lang, i18n, TextBox, Tooltip, template, has){
 
 	// module:
 	//		dijit/form/ValidationTextBox
@@ -131,7 +132,10 @@ define([
 			//		Can override with your own routine in a subclass.
 			// tags:
 			//		protected
-			return this.validator(this.applyNumericShaping(this.textbox.value, "Nominal"), this.get('constraints'));
+			if(has("dojo-bidi")){
+				return this.validator(this.applyNumericShaping(this.textbox.value, "Nominal"), this.get('constraints'));
+			}
+			return this.validator(this.textbox.value, this.get('constraints'));
 		},
 
 		_isEmpty: function(value){

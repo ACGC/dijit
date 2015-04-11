@@ -4,8 +4,9 @@ define([
 	"dojo/i18n", // i18n.normalizeLocale, i18n.getLocalization
 	"dojo/string", // string.rep
 	"dojo/number", // number._realNumberRegexp number.format number.parse number.regexp
-	"./RangeBoundTextBox"
-], function(declare, lang, i18n, string, number, RangeBoundTextBox){
+	"./RangeBoundTextBox",
+	"dojo/has"
+], function(declare, lang, i18n, string, number, RangeBoundTextBox, has){
 
 	// module:
 	//		dijit/form/NumberTextBox
@@ -278,6 +279,9 @@ define([
 				return this.inherited(arguments);
 			}else{
 				var v = this.get('value');
+				if(has("dojo-bidi")){
+					v = this.applyNumericShaping(v || this.get('displayedValue'), "Nominal");
+				}
 				if(!isNaN(v) && this.rangeCheck(v, this.constraints)){
 					if(this.constraints.exponent !== false && /\de[-+]?\d/i.test(this.textbox.value)){ // exponential, parse doesn't like it
 						return true; // valid exponential number in range
