@@ -250,21 +250,10 @@ define(["dojo/data/util/NumericShaperUtility","dojo/on", "dojo/query", "dojo/asp
 
 			text = new String(text);
 			shaperType = shaperType || this.numericShaperType;
-			var ob = new NumericShaper();
 			var shapedString = new String("");
 			
-			if (shaperType === "National") {
-				ob.getShaper(ob.ARABIC);
-			} else if (shaperType === "Contextual" && this.textDir == "rtl") {
-				ob.getContextualShaper(ob.ARABIC, ob.ARABIC); // stand-alone digits will be 'National' 
-			} else if (shaperType === "Contextual") {
-				ob.getContextualShaper(ob.ARABIC, ob.EUROPEAN); // stand-alone digits will be 'Nominal'
-			} else {
-				ob.getShaper(ob.EUROPEAN);
-			}
-
 			if (text) {
-				shapedString = ob.shapeWith(shaperType, text).join("");
+				shapedString = NumericShaper.shape(text, shaperType, this.textDir);
 			}
 
 			return shapedString;
