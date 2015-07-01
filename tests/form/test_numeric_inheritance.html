@@ -12,6 +12,27 @@
 	
 <script type="text/javascript" >
 
+function test(){
+	/*
+	var wid = dijit.byId("selectBox1");
+	wid.set("emptyLabel", "test123");
+	wid.addOption({value:"test",label:"test123"})
+	console.dir(wid.getOptions("test"))
+	
+	var wid = dijit.byId("comboBox1");
+	wid.get("store").add({name:"test213",id:"me", value:"test"});
+	wid.get("store").put({name:"new213",id:"me", value:"test"});
+	var wid = dijit.byId("filterBox1");
+	wid.get("store").add({name:"test213",id:"me", value:"test"});
+	var wid = dijit.byId("multiBox1");
+	var op = window.document.createElement('option');
+	op.innerHTML ="test123";
+	op.selected = true;
+	wid.containerNode.appendChild(op);
+	*/
+	var wid = dijit.byId("myProgressBar1");
+	wid.set("value", 30)
+}
 	
 </script>
 
@@ -20,19 +41,27 @@
 
 
 <div numericShaperType="National">
+
+ProgressBar
+	<div data-dojo-type="dijit/ProgressBar" style="width:300px" id="myProgressBar1" 
+	data-dojo-props="value:80"></div>
+	<br>
+	<button onclick="test()">getVal</button>
+<div id="numBox1" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="value:12"></div>
+				<br>
+				<br>
 <!-- 
 <div id="currencyBox1" required data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="title:'NumberSpinner:', value:'test123'"></div>
 <button onclick="getVal()">getVal</button>
  -->
-
+		
 <form action="http://9.159.246.36:888/hello.php" method="POST">
    <input type="text" id="foo" name="foo" value="test123____تست123">
-   <!--<div id="foo" name="foo" data-dojo-type="dijit/form/TextBox" value="test123____تست123"></div>-->
+   <div id="foo" name="foo" data-dojo-type="dijit/form/TextBox" value="test123____تست123"></div>
    
    <input type="submit" value="Send" name="submit" id="submit">
 </form>
  test123تيست123
-
 <!-- <input id="dojoBox" />
 	<div>National<br>
 		<div numericShaperType="National"> 
