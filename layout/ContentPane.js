@@ -548,6 +548,7 @@ define([
 				startup: false,
 				dir: this.dir,
 				lang: this.lang,
+				numericShaperType: this.numericShaperType,
 				textDir: this.textDir
 			}, this._contentSetterParams || {});
 

@@ -177,6 +177,7 @@ define([
 				dir: page.dir,
 				lang: page.lang,
 				textDir: page.textDir || this.textDir,
+				numericShaperType: this.numericShaperType,
 				showLabel: page.showTitle,
 				iconClass: page.iconClass,
 				closeButton: page.closable,

@@ -90,9 +90,15 @@ define([
 					start += inc;
 				}
 			}
+			labels = this._shapeLabels(labels);
 			return labels;
 		},
 
+		_shapeLabels: function(labels){
+			// extension point for numeric shaping code
+			return labels;
+		},
+		
 		postMixInProperties: function(){
 			this.inherited(arguments);
 			this.labels = this.getLabels();
@@ -115,6 +121,13 @@ define([
 
 			_genDirectionHTML: function(label){
 				return (this.textDir ? ("direction:" + this.getTextDir(label) + ";") : "")
+			}
+			
+			_shapeLabels: function(labels){
+				for(var i = 0; i < labels.length; i++){
+					labels[i] = this.applyNumericShaping(labels[i]);
+				}
+				return labels;
 			}
 		});
 	}

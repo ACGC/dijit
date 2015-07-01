@@ -189,6 +189,7 @@ define([
 				dir: child.dir,
 				lang: child.lang,
 				textDir: child.textDir || this.textDir,
+				numericShaperType: this.numericShaperType,
 				iconClass: child.iconClass,
 				id: child.id + "_button",
 				parent: this.parent
@@ -373,6 +374,7 @@ define([
 				dir: child.dir,
 				lang: child.lang,
 				textDir: child.textDir || this.textDir,
+				numericShaperType: this.numericShaperType
 				parent: this
 			});
 
