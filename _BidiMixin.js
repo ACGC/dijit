@@ -1,4 +1,4 @@
-define([], function(){
+define(["dojo/data/util/NumericShaperUtility", "dojo/aspect"], function(NumericShaper, aspect){
 
 	// module:
 	//		dijit/_BidiMixin
@@ -21,6 +21,18 @@ define([], function(){
 		//		in ltr GUI, sometimes needed auto support.
 		//		In creation of widget, if it's want to activate this class,
 		//		the widget should define the "textDir".
+		
+		// numericShaperType: String
+		//		Bi-directional support,	the variable which is responsible for the shaping type of the digits.
+		//
+		//		Allowed values:
+		//
+		//		1. "Nominal"  - The digit shapes will be European.
+		//		2. "National" - The digit shapes will be Arabic-Indic.
+		//		3. "Contextual" - Digit shapes are determined from adjoining characters in the value.
+		//
+		//		By default it is "Nominal"/European digits.
+		numericShaperType: "Nominal",
 
 		getTextDir: function(/*String*/ text){
 			// summary:
@@ -140,6 +152,77 @@ define([], function(){
 					this.applyTextDir(node);
 				}
 			}
+		},
+		
+		getNumericShaperType: function(){
+			// summary:
+			//		Gets the numeric shaping type of the widget.
+			
+			return this.numericShaperType;
+		},
+		
+		setNumericShaperType: function(type){
+			// summary:
+			//		Sets the numeric shaping type of the widget.
+			this._setNumericShaperTypeAttr(type);
+		},
+		
+		_setNumericShaperTypeAttr: function(type){
+			// summary:
+			//		Sets the numeric shaping type of the widget.
+			// description:
+			//		Users shouldn't call this function; they should call set('numericShaperType', value)
+			if(["National", "Nominal", "Contextual"].indexOf(type) > -1)
+				this.numericShaperType = type;
+			else 
+				this.numericShaperType = "Nominal";
+		},
+		
+		postMixInProperties: function(){
+			this.inherited(arguments);
+
+			aspect.before(this, "set", function(name, value){
+				if(this._isValidAttr(name) && typeof value === 'string'){
+					value = this.applyNumericShaping(value);
+				}
+				return arguments;
+			});
+			
+		},
+		
+		_isValidAttr: function(attrName){
+			if(["label", "title", "placeHolder", "content",
+			    "errorMessage", "loadingMessage", "invalidMessage",
+			    "message", "missingMessage", "promptMessage",
+			    "rangeMessage", "emptyLabel"].indexOf(attrName) > -1){
+				return true;
+			}
+			return false;
+		},
+		
+		applyNumericShaping : function( /*String?*/ text, /*optional*/ shaperType) {
+			// summary:
+			//		Apply the shaping algorithm on the input text according to the selected shaperType & textDir.
+			// description:
+			//		Arabic and many other languages have classical shapes for digits (National Digits) that are different from the conventional Western Digits (European).
+			//		National digits have the same semantic meaning as the European digits. The difference is only a difference in glyphs.
+			//		This function will shape the input digits as the following:
+			//      1- Arabic-indic: if the shaperType was 'National'.
+			//      2- Arabic-indic: if the shaperType was 'Contextual' & the preceding character was Arabic.
+			//		3- Arabic-indic: if the shaperType was 'Contextual' & the textDir was 'rtl' & there is no preceding character.
+			//		4- European: if the shaperType was 'Nominal'.
+			//		5- European: if the shaperType was 'Contextual' & the preceding character was English.
+			//		6- European: if the shaperType was 'Contextual' & the textDir was 'ltr' & there is no preceding character.
+
+			shaperType = shaperType || this.numericShaperType;
+			var shapedString = new String("");
+
+			if (text) {
+				text = new String(text);
+				shapedString = NumericShaper.shape(text, shaperType, this.textDir);
+			}
+
+			return shapedString;
 		}
 	};
 });
