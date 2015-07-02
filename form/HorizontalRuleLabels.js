@@ -121,7 +121,7 @@ define([
 
 			_genDirectionHTML: function(label){
 				return (this.textDir ? ("direction:" + this.getTextDir(label) + ";") : "")
-			}
+			},
 			
 			_shapeLabels: function(labels){
 				for(var i = 0; i < labels.length; i++){

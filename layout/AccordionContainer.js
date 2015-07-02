@@ -374,7 +374,7 @@ define([
 				dir: child.dir,
 				lang: child.lang,
 				textDir: child.textDir || this.textDir,
-				numericShaperType: this.numericShaperType
+				numericShaperType: this.numericShaperType,
 				parent: this
 			});
 
