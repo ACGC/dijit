@@ -461,6 +461,7 @@ define([
 							dir: tree.dir,
 							lang: tree.lang,
 							textDir: tree.textDir,
+							numericShaperType: this.numericShaperType,
 							indent: this.indent + 1
 						});
 						if(existingNodes){
@@ -900,6 +901,7 @@ define([
 						label: this.label || this.getLabel(item),
 						labelType: this.model.labelType || "text",
 						textDir: this.textDir,
+						numericShaperType: this.numericShaperType,
 						indent: this.showRoot ? 0 : -1
 					}));
 
