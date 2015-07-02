@@ -16,8 +16,6 @@ define(["doh/runner", "dojo/has"], function(doh, has){
 	               {"widPath":"dijit/form/VerticalSlider","widAttr":["title"]},
 	               {"widPath":"dijit/form/Button","widAttr":["title", "label"]},
 	               {"widPath":"dijit/form/ComboButton","widAttr":["title", "label"]},
-	               {"widPath":"dijit/form/CheckBox","widAttr":["title", "label"]},
-	               {"widPath":"dijit/form/RadioButton","widAttr":["title", "label"]},
 	               {"widPath":"dijit/form/DropDownButton","widAttr":["title", "label"]},
 	               {"widPath":"dijit/form/ToggleButton","widAttr":["title", "label"]},
 	               {"widPath":"dijit/form/Select","widAttr":["title", "emptyLabel"]},
@@ -126,40 +124,6 @@ define(["doh/runner", "dojo/has"], function(doh, has){
 		    	   doh.assertEqual("Nominal", bidiWidget.getNumericShaperType());
 		    	   
 		    	   
-		       }
-	     },
-	     {
-	    	 name: "Numeric Shaping dijit/Tree" ,
-		       runTest:function(){
-		    	   require(["dojo/store/Memory", "dojo/store/Observable", "dijit/tree/ObjectStoreModel", "dijit/Tree"], function(Memory, Observable, ObjectStoreModel, Tree){
-		    		   var myStore = new Memory({
-		    			   data: [ { id: '_id', name:'abc 123', type:'type'}],
-		    		        getChildren: function(object){
-		    		            return this.query({parent: object.id});
-		    		        } 
-		    		   });
-		    		   myStore = new Observable(myStore);
-		    		   var myModel = new ObjectStoreModel({
-		    		        store: myStore,
-		    		        query: { id: "_id" }
-		    		    });
-
-		    		   testCases.forEach(function(testCase){
-		    			   var bidiWidget = new Tree({
-			    		        model: myModel,
-			    		        numericShaperType: testCase.shape,
-			    		        textDir: testCase.textDir
-			    		    });
-			    		   bidiWidget.set("title", testCase.value);
-			    		   myStore.remove('_id');
-			    		   myStore.add({id: '_id', name:testCase.value, type:'type'});
-		    			   doh.assertEqual(testCase.shape, bidiWidget.get("numericShaperType"));
-		    			   doh.assertEqual(testCase.textDir, bidiWidget.get("textDir"));
-		    			   doh.assertEqual(testCase.expected, bidiWidget.get("title"), "Tree title "+ testCase.shape + "-" + testCase.textDir);
-		    			   doh.assertEqual(testCase.expected, bidiWidget.model.store.data[0].name, "Tree label " + testCase.shape + "-" + testCase.textDir);
-		    		   });
-
-	    			});
 		       }
 	     }        
 	 ]);
